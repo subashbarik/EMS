@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Name": "HR",
+    "Description": "HR Department"
+  },
+  {
+    "Name": "Sales",
+    "Description": "Sales Department"
+  },
+  {
+    "Name": "Development",
+    "Description": "Development Department"
+  },
+  {
+    "Name": "Support",
+    "Description": "Support Department"
+  }
+]

@@ -1,0 +1,14 @@
+@import "../../../../variable.scss";
+.ems-table {
+  width: 100%;
+}
+.ems-table-header {
+  background-color: $emsTableHeaderColor;
+  font-weight: 500;
+}
+tbody tr:hover {
+  background-color: $emsTableRowHoverColor;
+}
+.ems-table-tr {
+  background-color: $emsTableRowHoverColor;
+}

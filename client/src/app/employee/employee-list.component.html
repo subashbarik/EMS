@@ -1,0 +1,43 @@
+<div class="d-flex flex-row ems-header">
+  <div class="p-2">
+    <a href="#" routerLink="/employees" class="ems-a">List</a>
+  </div>
+  <div class="p-2">
+    <a href="#" routerLink="/employees/add" class="ems-a">Create</a>
+  </div>
+</div>
+<div class="container-fluid ems-body">
+  <ng-container *ngIf="vm$ | async as vm">
+    <div
+      class="row"
+      *ngIf="
+        vm.loadingStatus !== 'loading' && vm.loadingStatus !== 'deleting';
+        else loading
+      "
+    >
+      <ng-container *ngIf="vm.employees">
+        <div
+          class="col-4 my-2"
+          *ngFor="let item of vm.employees"
+          style="padding: 0px"
+        >
+          <app-employee-card [employee]="item"></app-employee-card>
+        </div>
+      </ng-container>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="vm.count > 0">
+      <app-pager
+        [pageSize]="vm.empParams.pageSize"
+        [totalCount]="vm.count"
+        [pageNumber]="vm.empParams.pageIndex"
+        (pageChanged)="onPageChanged($event)"
+      >
+      </app-pager>
+    </div>
+    <ng-template #loading>
+      <div class="ems-body">
+        <h3>{{ vm.loadingStatus | titlecase }} please wait..</h3>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

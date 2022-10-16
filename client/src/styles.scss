@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/ngx-toastr/toastr.css";
+@import "./variable.scss";
+
+body {
+  //   background-color: $emsPrimaryThemeColor;
+}
+.ems-header {
+  background-color: $emsPrimaryThemeColor;
+  color: $emsPageHeaderColor;
+  font-size: 1.5rem;
+}
+.ems-body {
+  min-height: 75vh;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";

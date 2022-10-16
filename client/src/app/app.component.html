@@ -1,0 +1,33 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <div *ngIf="vm.globalLoadStatus !== 'loading'; else loading">
+    <header>
+      <app-header></app-header>
+    </header>
+
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2">
+            <app-side-menu></app-side-menu>
+          </div>
+          <div class="col-10">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <app-footer></app-footer>
+    </footer>
+  </div>
+  <ng-template #loading>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12" style="padding-top: 4rem; height: 80vh">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

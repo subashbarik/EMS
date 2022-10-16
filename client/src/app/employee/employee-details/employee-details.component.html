@@ -1,0 +1,39 @@
+<ng-container *ngIf="employee$ | async as employee">
+  <div class="ems-header">Employee Details</div>
+  <div class="row mt-2 ems-body">
+    <div class="col-5">
+      <img
+        src="{{ employee.imageUrl }}"
+        class="img-fluid rounded-start"
+        alt="{{ employee.firstName }} {{ employee.lastName }}"
+      />
+    </div>
+    <div class="col-7">
+      <div class="row">
+        <div class="col-3">First Name</div>
+        <div class="col-3">{{ employee.firstName }}</div>
+        <div class="col-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Last Name</div>
+        <div class="col-3">{{ employee.lastName }}</div>
+        <div class="col-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Age</div>
+        <div class="col-3">{{ employee.age }}</div>
+        <div class="col-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Department</div>
+        <div class="col-3">{{ employee.departmentName }}</div>
+        <div class="col-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Designation</div>
+        <div class="col-3">{{ employee.designationName }}</div>
+        <div class="col-6"></div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Developer",
+    "Description": "Programmer"
+  },
+  {
+    "Name": "Senior Developer",
+    "Description": "Senior Developer"
+  },
+  {
+    "Name": "Architect",
+    "Description": "Architect"
+  },
+  {
+    "Name": "HR Manager",
+    "Description": "HR Manager"
+  },
+  {
+    "Name": "Sales Manager",
+    "Description": "Sales Manager"
+  },
+  {
+    "Name": "Support Manager",
+    "Description": "Support Manager"
+  }
+]

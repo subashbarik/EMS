@@ -1,0 +1,16 @@
+[
+  {
+    "FirstName": "Sankar",
+    "LastName": "Mishra",
+    "Age": 45,
+    "Salary": 3000,
+    "ImageUrl": "images/employee/sankar.png"
+  },
+  {
+    "FirstName": "Tarun",
+    "LastName": "Mohapatra",
+    "Age": 42,
+    "Salary": 3000,
+    "ImageUrl": "images/employee/tarun.png"
+  }
+]

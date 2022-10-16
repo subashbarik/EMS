@@ -1,0 +1,16 @@
+<div class="ems-header">Error</div>
+<div class="ac-container ac-server-error ac-margin-top-lg">
+  <h1 class="ac-server-error-header tertiary">{{ statusText }}</h1>
+  <p>Error Details:</p>
+  <p>{{ errorMsg }}</p>
+  <div>
+    Following may have caused the issue
+    <ul>
+      <li>Application is not able to connect to the server.</li>
+      <li>Firewall may have blocked the request to server.</li>
+      <li>
+        An installed browser extension may have blocked the request to server.
+      </li>
+    </ul>
+  </div>
+</div>
