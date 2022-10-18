@@ -9,6 +9,7 @@ namespace Infrastructure.Data.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.Property(p => p.Id).IsRequired().UseIdentityColumn();
+            builder.Property(p => p.UserID).HasMaxLength(450);   
             builder.Property(p => p.FirstName).IsRequired().HasMaxLength(30);
             builder.Property(p => p.LastName).IsRequired().HasMaxLength(30);
             builder.Property(p => p.Age).IsRequired();

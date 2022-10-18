@@ -4,6 +4,7 @@ using Domain.Enums;
 using Domain.Interfaces;
 using Domain.Types;
 using Faker;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,17 +20,21 @@ namespace Infrastructure.Data
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IOptions<AppConfigurationOptions> _options;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public FakeEmployeeDataGenerator(
             IGenericDapperRepository dapper,
             IUnitOfWork unitOfWork,
             ILogger<FakeEmployeeDataGenerator> logger,
-            IOptions<AppConfigurationOptions> options)
+            IOptions<AppConfigurationOptions> options,
+            UserManager<IdentityUser> userManager
+            )
         {
             _dapper = dapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _options = options;
+            _userManager = userManager;
         }
         public async Task<List<Employee>> GenerateFakeData(int noOfRecords,
                                                            bool insertRecords = false,
@@ -127,6 +132,26 @@ namespace Infrastructure.Data
                 employee.Age = RandomNumber.Next(8, 100);
                 employee.Salary = RandomNumber.Next(2000, 10000);
                 employee.ImageUrl = _options.Value.NoImageEmployeePath;
+
+                //Create a user info in the identity table for the employee
+                var user = new IdentityUser
+                {
+                    NormalizedUserName = employee.FirstName + " " + employee.LastName,
+                    Email = $"fakemail_{employee.FirstName}_{employee.LastName}_{employee.Age}.gmail.com",
+                    UserName = employee.FirstName,
+                };
+                var result = await _userManager.CreateAsync(user, "Pa$$w0rd");
+                if (result.Succeeded)
+                {
+                    var createdUser = await _userManager.FindByEmailAsync(user.Email);
+                    employee.UserID = createdUser.Id;
+                    //Assign the user role
+                    if (!await _userManager.IsInRoleAsync(createdUser, "User"))
+                    {
+                        await _userManager.AddToRoleAsync(createdUser, "User");
+                    }
+                }
+
                 if (insertRecords)
                 {
                     employee.DepartmentId = RandomNumber.Next(minDepartmentId, maxDepartmentId);

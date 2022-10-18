@@ -1,0 +1,5 @@
+Ef Commands for EMS
+--------------------------
+Add Migrations : dotnet ef migrations add EmployeeTable_Update -p External/Infrastructure -s Web -c EMSContext
+Update Database to latest migration : dotnet ef database update -p External/Infrastructure -s Web -c EMSContext
+Remmove Migrations : dotnet ef migrations remove -p External/Infrastructure -s Web -c EMSContext

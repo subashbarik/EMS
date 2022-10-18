@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Web.Options;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Web.Extensions
 {
@@ -9,10 +11,11 @@ namespace Web.Extensions
     {
         public static IServiceCollection AddDatabaseServices(this IServiceCollection services)
         {
-            // Register Database options configuration setup
+            // Register Database options configuration setup and setup EMS Database
             services.ConfigureOptions<DatabaseOptionsSetup>();
             services = AddEMSDbContext(services);
-
+            // Setup EMS Identity Database
+            services = AddEMSIdentityContext(services);
             return services;
         }
         //Configuration related to the EMS database
@@ -35,6 +38,16 @@ namespace Web.Extensions
                 option.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
 
             });
+            return services;
+        }
+        private static IServiceCollection AddEMSIdentityContext(IServiceCollection services)
+        {
+            services.AddDbContext<EMSIdentityContext>((serviceProvider,options) =>
+            {
+                var config = serviceProvider.GetRequiredService<IConfiguration>();
+                options.UseSqlServer(config.GetConnectionString("IdentityConnection"));
+            });
+            services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<EMSIdentityContext>();
             return services;
         }
     }

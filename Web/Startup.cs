@@ -1,5 +1,7 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Web
@@ -15,9 +17,17 @@ namespace Web
             var fakeEmployeeGenerator = services.GetRequiredService<IFakeEmployeeDataGenerator>();
             try
             {
+                var identityContext = services.GetService<EMSIdentityContext>();
+                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                await identityContext.Database.MigrateAsync();
+                await EMSIdentityContextSeed.SeedAsync(userManager, roleManager, loggerFactory);
+
                 var context = services.GetService<EMSContext>();
                 await context.Database.MigrateAsync();
                 await EMSContextSeed.SeedAsync(context, loggerFactory, fakeEmployeeGenerator);
+
+                
             }
             catch(Exception ex)
             {

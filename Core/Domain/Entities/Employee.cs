@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     public class Employee :BaseEntity
-    {
+    { 
+        public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }

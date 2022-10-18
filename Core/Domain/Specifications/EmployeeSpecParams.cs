@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Domain.Specifications
 {
     public class EmployeeSpecParams:BaseSpecParams
-    {
+    {   
         public int? DepartmentId { get; set; }
         public int? DesignationId { get; set; }
        
