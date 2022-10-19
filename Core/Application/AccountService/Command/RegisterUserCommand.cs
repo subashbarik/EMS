@@ -1,5 +1,4 @@
 ﻿using Application.Dtos;
-using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.EmployeeService.Commands
+namespace Application.AccountService.Command
 {
-    public sealed record InsertEmployeeCommand(EmployeeDto employee): IRequest<EmployeeDto>;
+    public sealed record RegisterUserCommand(RegisterDto registerDto):IRequest<UserDto>;
+    
 }

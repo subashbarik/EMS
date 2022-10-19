@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities.Identity;
+using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace Web
             try
             {
                 var identityContext = services.GetService<EMSIdentityContext>();
-                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 await identityContext.Database.MigrateAsync();
                 await EMSIdentityContextSeed.SeedAsync(userManager, roleManager, loggerFactory);

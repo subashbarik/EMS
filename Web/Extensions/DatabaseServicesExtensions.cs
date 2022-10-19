@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Web.Options;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
+using Domain.Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Application.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Web.Extensions
 {
@@ -41,13 +46,34 @@ namespace Web.Extensions
             return services;
         }
         private static IServiceCollection AddEMSIdentityContext(IServiceCollection services)
-        {
+        {   
             services.AddDbContext<EMSIdentityContext>((serviceProvider,options) =>
             {
                 var config = serviceProvider.GetRequiredService<IConfiguration>();
                 options.UseSqlServer(config.GetConnectionString("IdentityConnection"));
             });
-            services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<EMSIdentityContext>();
+            services.AddIdentityCore<AppUser>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<EMSIdentityContext>()
+            .AddSignInManager<SignInManager<AppUser>>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                var serviceProvider = services.BuildServiceProvider();
+                var tokenOptions = serviceProvider.GetService<IOptions<AppTokenConfigurationOptions>>()!.Value;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.Key)),
+                    ValidIssuer = tokenOptions.Issuer,
+                    ValidateIssuer = true,
+                    ValidateAudience = false
+                };
+            });
+            
             return services;
         }
     }

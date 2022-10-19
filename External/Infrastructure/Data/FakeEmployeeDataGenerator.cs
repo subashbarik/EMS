@@ -1,5 +1,7 @@
 ﻿using Application.Options;
+using Application.Statics;
 using Domain.Entities;
+using Domain.Entities.Identity;
 using Domain.Enums;
 using Domain.Interfaces;
 using Domain.Types;
@@ -20,14 +22,14 @@ namespace Infrastructure.Data
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IOptions<AppConfigurationOptions> _options;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public FakeEmployeeDataGenerator(
             IGenericDapperRepository dapper,
             IUnitOfWork unitOfWork,
             ILogger<FakeEmployeeDataGenerator> logger,
             IOptions<AppConfigurationOptions> options,
-            UserManager<IdentityUser> userManager
+            UserManager<AppUser> userManager
             )
         {
             _dapper = dapper;
@@ -134,11 +136,12 @@ namespace Infrastructure.Data
                 employee.ImageUrl = _options.Value.NoImageEmployeePath;
 
                 //Create a user info in the identity table for the employee
-                var user = new IdentityUser
+                var user = new AppUser
                 {
                     NormalizedUserName = employee.FirstName + " " + employee.LastName,
-                    Email = $"fakemail_{employee.FirstName}_{employee.LastName}_{employee.Age}.gmail.com",
-                    UserName = employee.FirstName,
+                    Email = $"{employee.FirstName}_{employee.LastName}_{employee.Age}.gmail.com",
+                    UserName = $"{employee.FirstName}_{employee.LastName}_{employee.Age}.gmail.com",
+                    DisplayName = employee.FirstName
                 };
                 var result = await _userManager.CreateAsync(user, "Pa$$w0rd");
                 if (result.Succeeded)
@@ -146,9 +149,9 @@ namespace Infrastructure.Data
                     var createdUser = await _userManager.FindByEmailAsync(user.Email);
                     employee.UserID = createdUser.Id;
                     //Assign the user role
-                    if (!await _userManager.IsInRoleAsync(createdUser, "User"))
+                    if (!await _userManager.IsInRoleAsync(createdUser, Role.User))
                     {
-                        await _userManager.AddToRoleAsync(createdUser, "User");
+                        await _userManager.AddToRoleAsync(createdUser, Role.User);
                     }
                 }
 

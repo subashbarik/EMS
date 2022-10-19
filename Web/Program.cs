@@ -17,11 +17,11 @@ var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
 builder.Services.AddControllers()
                 .AddApplicationPart(presentationAssembly);
 
-
-//Add Database services
-builder.Services.AddDatabaseServices();
 //Add Appplication services such as DI and Others
 builder.Services.AddApplicationServices();
+//Add Database services
+builder.Services.AddDatabaseServices();
+
 // CORS setting to allow Angular calls from client side
 builder.Services.AddCors(opt =>
 {
@@ -36,6 +36,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 //call back methods on application start/stop/before stop
 // app.Lifetime.ApplicationStarted.Register(OnStarted);
 // app.Lifetime.ApplicationStopping.Register(OnStopping);
