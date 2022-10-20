@@ -1,12 +1,9 @@
 ﻿using Application.AccountService.Command;
 using Application.Dtos;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
@@ -17,6 +14,14 @@ namespace Presentation.Controllers
         public AccountController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userDto = await _mediator.Send(new GetCurrentUserCommand(email));
+            return userDto;
         }
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -38,6 +43,11 @@ namespace Presentation.Controllers
                 return Unauthorized(userDto.apiErrorResponse);
             }
             return Ok(userDto);
+        }
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
+        {
+            return await _mediator.Send(new CheckEmailExistsCommand(email));
         }
     }
 }
