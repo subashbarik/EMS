@@ -5,6 +5,7 @@ using Application.Interfaces;
 using Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Application.Helpers;
 
 namespace Application.AccountService.Command
 {
@@ -25,7 +26,7 @@ namespace Application.AccountService.Command
             UserDto userDto = new();
             if (await _mediator.Send(new CheckEmailExistsCommand(request.registerDto.Email), cancellationToken))
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } };
                 return userDto;
             }
             var user = new AppUser
@@ -37,18 +38,21 @@ namespace Application.AccountService.Command
             var result = await _userManager.CreateAsync(user, request.registerDto.Password);
             if (!result.Succeeded)
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { $"Unable to create user. Reason : {result.Errors}" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { $"Unable to create user. Reason : {result.Errors}" } };
                 return userDto;
             }
             var roleResult =  await _userManager.AddToRoleAsync(user, Role.User);
             if(!roleResult.Succeeded)
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { $"Unable to assign role to the user. Reason : {roleResult.Errors}" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { $"Unable to assign role to the user. Reason : {roleResult.Errors}" } };
                 return userDto;
             }
             userDto.Email = user.Email;
-            userDto.DisplayName = user.Email;
+            userDto.DisplayName = user.DisplayName;
             userDto.Token = _tokenSertvice.CreateToken(user);
+            userDto.Roles = new List<string>();
+            userDto.Roles.Add(Role.User);
+            userDto.IsAdmin = AccountHelper.IsAdmin(userDto);
             return userDto;
         }
     }

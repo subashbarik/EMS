@@ -5,8 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { employeeReducer } from './state/employee/employee.reducer';
@@ -18,9 +17,12 @@ import { designationReducer } from './state/designation/designation.reducer';
 import { DesignationEffect } from './state/designation/designation.effects';
 import { globalReducer } from './state/appglobal/appglobal.reducer';
 import { GlobalEffects } from './state/appglobal/appglobal.effects';
+import { accountReducer } from './state/account/account.reducer';
+import { AccountEffects } from './state/account/account.effects';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AboutComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,12 +30,14 @@ import { GlobalEffects } from './state/appglobal/appglobal.effects';
     HttpClientModule,
     CoreModule,
     StoreModule.forRoot({
+      accState: accountReducer,
       empState: employeeReducer,
       deptState: departmentReducer,
       desigState: designationReducer,
       globalState: globalReducer,
     }),
     EffectsModule.forRoot([
+      AccountEffects,
       EmployeeEffects,
       DepartmentEffects,
       DesignationEffect,
@@ -42,6 +46,11 @@ import { GlobalEffects } from './state/appglobal/appglobal.effects';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

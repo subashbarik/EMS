@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Dtos;
+﻿using Application.Dtos;
 using Application.Errors;
+using Application.Helpers;
 using Application.Interfaces;
 using Domain.Entities.Identity;
 using MediatR;
@@ -28,13 +24,20 @@ namespace Application.AccountService.Command
             var user = await _userManager.FindByEmailAsync(request.Email);
             if(user ==  null)
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { "Unable to find user" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse { Errors = new[] { "Unable to find user" } };
+                return userDto;
+            }
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles == null)
+            {
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "No roles associated with the user." } };
                 return userDto;
             }
             userDto.Email = user.Email;
             userDto.DisplayName = user.DisplayName;
             userDto.Token = _tokenService.CreateToken(user);
-
+            userDto.Roles = roles;
+            userDto.IsAdmin = AccountHelper.IsAdmin(userDto);
             return userDto;
         }
     }

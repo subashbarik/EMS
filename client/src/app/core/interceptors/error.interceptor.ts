@@ -31,7 +31,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toster.error(error.error.message, error.error.statusCode);
           }
           if (error.status === 404) {
-            this.router.navigateByUrl('/not-found');
+            this.router.navigateByUrl('/main/not-found');
           }
           if (error.status === 500) {
             // pass extra information in the router, so that we can access this
@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             const navigationExtras: NavigationExtras = {
               state: { error: error.error },
             };
-            this.router.navigateByUrl('/server-error', navigationExtras);
+            this.router.navigateByUrl('/main/server-error', navigationExtras);
           }
           if (error.status === 0) {
             const navigationExtras: NavigationExtras = {
@@ -48,7 +48,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 statusText: error.statusText,
               },
             };
-            this.router.navigateByUrl('/unknown-error', navigationExtras);
+            this.router.navigateByUrl('/main/unknown-error', navigationExtras);
           }
         }
         return throwError(() => error);

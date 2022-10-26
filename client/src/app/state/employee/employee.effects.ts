@@ -14,7 +14,7 @@ import {
   updateEmployeeSuccess,
 } from './employee.actions';
 import { from } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import { IEmployee } from 'src/app/shared/models/employee';
 
 @Injectable()

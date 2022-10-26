@@ -1,5 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Errors;
+using Application.Helpers;
 using Application.Interfaces;
 using Domain.Entities.Identity;
 using MediatR;
@@ -25,19 +26,27 @@ namespace Application.AccountService.Command
             var user = await _userManager.FindByEmailAsync(request.LoginDto.Email);
             if (user == null)
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "Unable to find User" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "Unable to find User." } };
+                return userDto;
             }
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.LoginDto.Password, false);
             if (!result.Succeeded)
             {
-                userDto.apiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "Wrong Password" } };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "Wrong Password." } };
+                return userDto;
             }
-            return new UserDto
+            var roles = await _userManager.GetRolesAsync(user);
+            if(roles == null)
             {
-                Email = user.Email,
-                DisplayName = user.DisplayName,
-                Token = _tokenService.CreateToken(user)
-            };
+                userDto.ApiErrorResponse = new ApiValidationErrorResponse(401) { Errors = new[] { "No roles associated with the user." } };
+                return userDto;
+            }
+            userDto.Email = user.Email;
+            userDto.DisplayName = user.DisplayName;
+            userDto.Token = _tokenService.CreateToken(user);
+            userDto.Roles = roles;
+            userDto.IsAdmin = AccountHelper.IsAdmin(userDto);
+            return userDto;
         }
     }
 }

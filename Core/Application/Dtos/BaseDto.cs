@@ -9,6 +9,6 @@ namespace Application.Dtos
 {
     public class BaseDto
     {
-        public ApiValidationErrorResponse apiErrorResponse;
+        public ApiValidationErrorResponse ApiErrorResponse;
     }
 }

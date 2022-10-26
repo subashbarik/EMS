@@ -1,47 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { combineLatest, map } from 'rxjs';
-import {
-  loadGlobal,
-  loadGlobalSuccess,
-} from './state/appglobal/appglobal.actions';
-import {
-  globalLoadingStatus,
-  selectGlobal,
-} from './state/appglobal/appglobal.selectors';
+import { Subscription } from 'rxjs';
+import { AccountService } from './account/account.service';
+import { loadUser, loadUserSuccess } from './state/account/account.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'client';
-  public global$ = this.store.select(selectGlobal);
-  public globalLoadStatus$ = this.store.select(globalLoadingStatus);
-  public vm$ = combineLatest([this.global$, this.globalLoadStatus$]).pipe(
-    map(([global, globalLoadStatus]) => ({
-      global,
-      globalLoadStatus,
-    }))
-  );
+  public loadEmployeeStatusSubscription = new Subscription();
   constructor(
     private store: Store,
     private actions: Actions,
-    private router: Router
+    private router: Router,
+    private accService: AccountService
   ) {}
-  ngOnInit(): void {
-    // loads all global dependents of the application
-    // such as app configurations in the web server
-    this.store.dispatch(loadGlobal());
-    this.actions.pipe(ofType(loadGlobalSuccess)).subscribe({
-      next: (response) => {
-        this.router.navigate(['']);
-      },
-    });
 
-    this.router.navigate(['/loadingapp']);
+  ngOnInit(): void {
+    this.setupSubscription();
+    this.loadCurrentUser();
+  }
+  ngOnDestroy(): void {
+    this.loadEmployeeStatusSubscription.unsubscribe();
+  }
+  loadCurrentUser() {
+    const token = localStorage.getItem('token');
+    this.store.dispatch(loadUser({ token: token }));
+  }
+  setupSubscription() {
+    this.loadEmployeeStatusSubscription = this.actions
+      .pipe(ofType(loadUserSuccess))
+      .subscribe({
+        next: (response) => {
+          if (response.user) {
+            this.accService.setJwtTokenInLocalStorage(response.user.token);
+            this.router.navigate(['/main/home']);
+          } else {
+            this.router.navigate(['/account/login']);
+          }
+        },
+      });
   }
 }

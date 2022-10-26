@@ -27,9 +27,9 @@ namespace Presentation.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {   
             var userDto = await _mediator.Send(new RegisterUserCommand(registerDto));
-            if(userDto.apiErrorResponse is not null && userDto.apiErrorResponse.Errors is not null)
+            if (userDto.ApiErrorResponse is not null && userDto.ApiErrorResponse.Errors is not null)
             {
-                return BadRequest(userDto.apiErrorResponse);
+                return BadRequest(userDto.ApiErrorResponse);
             }
             return Ok(userDto);
         }
@@ -38,9 +38,9 @@ namespace Presentation.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var userDto = await _mediator.Send(new LoginUserCommand(loginDto));
-            if (userDto.apiErrorResponse is not null && userDto.apiErrorResponse.Errors is not null)
+            if (userDto.ApiErrorResponse is not null && userDto.ApiErrorResponse.Errors is not null)
             {
-                return Unauthorized(userDto.apiErrorResponse);
+                return Unauthorized(userDto.ApiErrorResponse);
             }
             return Ok(userDto);
         }
