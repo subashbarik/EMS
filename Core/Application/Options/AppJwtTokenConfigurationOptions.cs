@@ -1,6 +1,6 @@
 ﻿namespace Application.Options
 {
-    public class AppTokenConfigurationOptions
+    public class AppJwtTokenConfigurationOptions
     {
         public string Key { get; set; }
         public string Issuer { get; set; }

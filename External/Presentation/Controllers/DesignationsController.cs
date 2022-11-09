@@ -3,6 +3,7 @@ using Application.Dtos;
 using Application.Types;
 using Domain.Specifications;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -15,6 +16,7 @@ namespace Presentation.Controllers
             _mediator = mediator;
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Pagination<DesignationDto>>> GetEmployees([FromQuery]DesignationSpecParams designationParams)
         {
             return Ok(await _mediator.Send(new GetAllDesignationsQuery(designationParams)));

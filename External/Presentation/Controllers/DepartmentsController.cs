@@ -9,6 +9,7 @@ using Application.Types;
 using Application.Dtos;
 using Domain.Specifications;
 using Application.DepartmentService.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers
 {
@@ -20,6 +21,7 @@ namespace Presentation.Controllers
             _mediator = mediator;
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Pagination<DepartmentDto>>> GetDepartments([FromQuery]DepartmentSpecParams departmentParams)
         {
             return Ok(await _mediator.Send(new GetAllDepartmentsQuery(departmentParams)));

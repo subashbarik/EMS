@@ -6,16 +6,17 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AccountService } from 'src/app/account/account.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private accService: AccountService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('token');
+    const token = this.accService.getJwtToken();
     if (token) {
       request = request.clone({
         setHeaders: {

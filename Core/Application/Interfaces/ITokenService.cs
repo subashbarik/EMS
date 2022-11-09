@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Identity;
+﻿using Application.Dtos;
+using Domain.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Application.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(AppUser user);
+        string CreateToken(AppUser user,IList<string> Roles );
+        bool ValidateCurrentToken(string token);
     }
 }

@@ -2,11 +2,13 @@
 using Application.Helpers;
 using Application.Interfaces;
 using Application.Options;
+using Application.Errors;
 using Domain.Errors;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Extensions
 {
@@ -23,7 +25,7 @@ namespace Web.Extensions
         private static IServiceCollection AddDIServices(IServiceCollection services)
         {
             services.ConfigureOptions<AppConfigurationOptionsSetup>();
-            services.ConfigureOptions<AppTokenConfigurationOptionsSetup>();
+            services.ConfigureOptions<AppJwtTokenConfigurationOptionsSetup>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericEFRepository<>), typeof(GenericEFRepository<>));
             services.AddScoped<IGenericDapperRepository, GenericDapperRepository>();
@@ -31,6 +33,26 @@ namespace Web.Extensions
             services.AddScoped<ICustomException, CustomException>();
             services.AddScoped<IImageProcessor, ImageProcessor>();
             services.AddScoped<ITokenService, TokenService>();
+
+            // Setup for validation errors to return error 
+            // in the way we want
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = actionConext =>
+                {
+                    var errors = actionConext.ModelState
+                                 .Where(e => e.Value.Errors.Count > 0)
+                                 .SelectMany(x => x.Value.Errors)
+                                 .Select(x => x.ErrorMessage).ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse
+                    {
+                        Errors = errors
+                    };
+                    return new BadRequestObjectResult(errorResponse);
+                };
+
+            });
             return services;
         }
         private static IServiceCollection AddNugetDIServices(IServiceCollection services)

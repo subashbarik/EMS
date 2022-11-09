@@ -43,8 +43,8 @@ namespace Application.AccountService.Command
             }
             userDto.Email = user.Email;
             userDto.DisplayName = user.DisplayName;
-            userDto.Token = _tokenService.CreateToken(user);
             userDto.Roles = roles;
+            userDto.Token = _tokenService.CreateToken(user,userDto.Roles);
             userDto.IsAdmin = AccountHelper.IsAdmin(userDto);
             return userDto;
         }

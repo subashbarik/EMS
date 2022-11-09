@@ -20,6 +20,7 @@ namespace Application.AccountService.Command
         }
         public async Task<UserDto> Handle(GetCurrentUserCommand request, CancellationToken cancellationToken)
         {
+            var validToken = _tokenService.ValidateCurrentToken(request.jwtToken);
             UserDto userDto = new();
             var user = await _userManager.FindByEmailAsync(request.Email);
             if(user ==  null)
@@ -35,8 +36,16 @@ namespace Application.AccountService.Command
             }
             userDto.Email = user.Email;
             userDto.DisplayName = user.DisplayName;
-            userDto.Token = _tokenService.CreateToken(user);
             userDto.Roles = roles;
+            if(validToken is false)
+            {
+                userDto.Token = _tokenService.CreateToken(user, userDto.Roles);
+            }
+            else
+            {
+                userDto.Token = request.jwtToken.Replace("Bearer ", "");
+            }
+            
             userDto.IsAdmin = AccountHelper.IsAdmin(userDto);
             return userDto;
         }

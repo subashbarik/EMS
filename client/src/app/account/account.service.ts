@@ -1,16 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser, Roles } from '../shared/models/user';
+import { selectToken, selectUser } from '../state/account/account.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private store: Store) {}
 
   loadCurrentUser(token: string) {
     if (token === null) {
@@ -41,17 +43,15 @@ export class AccountService {
   setJwtTokenInLocalStorage(token: string) {
     localStorage.setItem('token', token);
   }
-  // isAdmin(user: IUser): boolean | null {
-  //   let output = false;
-  //   if (!user || !user.roles) {
-  //     return null;
-  //   }
-
-  //   user.roles.forEach((element) => {
-  //     if (element === Roles.Admin) {
-  //       output = true;
-  //     }
-  //   });
-  //   return output;
-  // }
+  getJwtToken(): string {
+    let token = localStorage.getItem('token');
+    if (token === null) {
+      this.store.select(selectToken).subscribe({
+        next: (response) => {
+          token = response;
+        },
+      });
+    }
+    return token;
+  }
 }

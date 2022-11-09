@@ -18,14 +18,16 @@ namespace Presentation.Controllers
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
-        {
+        {   
+            var jwtToken = Request.Headers["Authorization"];
             var email = User.FindFirstValue(ClaimTypes.Email);
-            var userDto = await _mediator.Send(new GetCurrentUserCommand(email));
+            var userDto = await _mediator.Send(new GetCurrentUserCommand(email, jwtToken));
             return userDto;
         }
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {   
+            //ModelState.IsValid()
             var userDto = await _mediator.Send(new RegisterUserCommand(registerDto));
             if (userDto.ApiErrorResponse is not null && userDto.ApiErrorResponse.Errors is not null)
             {

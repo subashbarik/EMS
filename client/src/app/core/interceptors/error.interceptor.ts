@@ -28,7 +28,12 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
           if (error.status === 401) {
-            this.toster.error(error.error.message, error.error.statusCode);
+            if (error.error !== null) {
+              this.toster.error(error.error.message, error.error.statusCode);
+            } else {
+              //User is not authorized so go to the login page.
+              this.router.navigateByUrl('/account/login');
+            }
           }
           if (error.status === 404) {
             this.router.navigateByUrl('/main/not-found');

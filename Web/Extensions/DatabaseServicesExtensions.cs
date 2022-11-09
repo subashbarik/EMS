@@ -62,7 +62,7 @@ namespace Web.Extensions
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 var serviceProvider = services.BuildServiceProvider();
-                var tokenOptions = serviceProvider.GetService<IOptions<AppTokenConfigurationOptions>>()!.Value;
+                var tokenOptions = serviceProvider.GetService<IOptions<AppJwtTokenConfigurationOptions>>()!.Value;
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -70,7 +70,10 @@ namespace Web.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.Key)),
                     ValidIssuer = tokenOptions.Issuer,
                     ValidateIssuer = true,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    // ToDO : check these flags
+                    ValidateLifetime = true,
+                    //ValidAudience = "http://localhost:5001"
                 };
             });
             

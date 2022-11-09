@@ -13,7 +13,7 @@ import { loadUser, loadUserSuccess } from './state/account/account.actions';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'client';
-  public loadEmployeeStatusSubscription = new Subscription();
+  public loadUserSuccessSubscription = new Subscription();
   constructor(
     private store: Store,
     private actions: Actions,
@@ -26,14 +26,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loadCurrentUser();
   }
   ngOnDestroy(): void {
-    this.loadEmployeeStatusSubscription.unsubscribe();
+    this.loadUserSuccessSubscription.unsubscribe();
   }
   loadCurrentUser() {
     const token = localStorage.getItem('token');
     this.store.dispatch(loadUser({ token: token }));
   }
   setupSubscription() {
-    this.loadEmployeeStatusSubscription = this.actions
+    this.loadUserSuccessSubscription = this.actions
       .pipe(ofType(loadUserSuccess))
       .subscribe({
         next: (response) => {
@@ -43,6 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
           } else {
             this.router.navigate(['/account/login']);
           }
+        },
+        error: (error) => {
+          console.log(error);
+          this.router.navigate(['/account/login']);
         },
       });
   }

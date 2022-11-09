@@ -202,7 +202,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (response: any) => {
             if (response) {
-              this.router.navigate(['/employees/details/' + empId]);
+              this.router.navigate(['/main/employees/details/' + empId]);
             }
           },
           error: (error) => {

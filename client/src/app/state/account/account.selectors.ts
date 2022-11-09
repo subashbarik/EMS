@@ -12,3 +12,7 @@ export const accountLoadingStatus = createSelector(
   accountState,
   (state: IAccountState) => state.status
 );
+export const selectToken = createSelector(
+  accountState,
+  (state: IAccountState) => state.user.token
+);
