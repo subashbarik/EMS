@@ -32,14 +32,11 @@ export class MainComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    console.log('main component');
     // loads all global dependents of the application
-    // such as app configurations in the web server
+    // such as app configurations, Company Info in the web server
     this.store.dispatch(loadGlobal());
     this.actions.pipe(ofType(loadGlobalSuccess)).subscribe({
-      next: (response) => {
-        //this.router.navigate(['/main']);
-      },
+      next: (response) => {},
     });
 
     this.router.navigate(['/main/home']);

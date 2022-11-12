@@ -65,6 +65,7 @@ namespace Infrastructure.Data
             }
         }
 
+        // Returns a dictionary of output params with output param as key and return value as value
         public async Task<Dictionary<string,object>> ExecuteWithParams(string storedProcedure,List<DbParam> inParams, List<DbParam> outParams)
         {
             Dictionary<string,object> output = new Dictionary<string,object>();

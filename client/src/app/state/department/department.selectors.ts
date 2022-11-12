@@ -16,3 +16,14 @@ export const departmentLoadingStatus = createSelector(
   departmentState,
   (state: IDepartmentState) => state.status
 );
+
+//status selector
+export const departmentActionStatus = createSelector(
+  departmentState,
+  (state: IDepartmentState) => state.status
+);
+// selector for a single department by id
+export const selectDepartment = (id: number) =>
+  createSelector(selectAllDepartments, (departments) =>
+    departments.find((department) => department.id === id)
+  );

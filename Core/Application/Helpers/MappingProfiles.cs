@@ -17,6 +17,8 @@ namespace Application.Helpers
                 .ForMember(ed => ed.ImageUrl, e => e.MapFrom<EmployeeNoImageResolver>());
             CreateMap<EmployeeDto, EmployeeDto>()
                 .ForMember(e => e.ImageUrl, ed => ed.MapFrom<EmployeeUrlResolver>());
+            CreateMap<DepartmentDto,Department>();
+            CreateMap<Department,DepartmentDto>();
         }
     }
 }

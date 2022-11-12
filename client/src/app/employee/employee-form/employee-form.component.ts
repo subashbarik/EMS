@@ -43,7 +43,7 @@ import {
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   public mode = 'ADD';
-  public pageTitle = 'Add Employee';
+  public pageTitle = 'Create Employee';
   public employeeForm: FormGroup;
   public imageFile: File;
   public employee: IEmployee;
@@ -192,7 +192,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
             }
           },
           error: (error) => {
-            this.toastrService.error('Problem updating employee.');
+            this.toastrService.error('Problem adding employee.');
           },
         });
     } else {

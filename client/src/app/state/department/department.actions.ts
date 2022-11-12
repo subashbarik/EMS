@@ -6,3 +6,28 @@ export const loadDepartmentsSuccess = createAction(
   '[department list] Success',
   props<{ departments: IDepartment[] }>()
 );
+export const addDepartment = createAction(
+  '[departments form] Add',
+  props<{ department: IDepartment }>()
+);
+export const addDepartmentSuccess = createAction(
+  '[department form] Add Success',
+  props<{ department: IDepartment }>()
+);
+export const updateDepartment = createAction(
+  '[department form] Update',
+  props<{ department: IDepartment }>()
+);
+export const updateDepartmentSuccess = createAction(
+  '[department form] Update Success',
+  props<{ department: IDepartment }>()
+);
+
+export const deleteDepartment = createAction(
+  '[department list] Delete',
+  props<{ department: IDepartment }>()
+);
+export const deleteDepartmentSuccess = createAction(
+  '[department list] Delete Success',
+  props<{ response: any }>()
+);

@@ -9,10 +9,37 @@ body {
 .ems-header {
   background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 .ems-body {
   min-height: 75vh;
+}
+.ems-profile-icon {
+  color: $emsPrimaryThemeColor;
+}
+.ems-logout-icon {
+  color: $emsPrimaryThemeColor;
+}
+
+.ems-table-icon,
+.ems-edit-table-icon,
+.ems-delete-table-icon {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.ems-edit-table-icon {
+  color: $emsPrimaryThemeColor;
+}
+.ems-delete-table-icon {
+  color: $emsTableRowDeleteColor;
+}
+.ems-a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+.ems-a:hover {
+  color: #333;
 }
 
 /* Importing Bootstrap SCSS file. */

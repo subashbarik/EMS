@@ -51,21 +51,7 @@ export class EmployeeService {
         })
       );
   }
-  deleteEmployee(employee: IEmployee) {
-    const options = {
-      body: {
-        id: employee.id,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        age: employee.age,
-        salary: employee.salary,
-        departmentId: employee.departmentId,
-        designationId: employee.designationId,
-        imageUrl: employee.imageUrl,
-      },
-    };
-    return this.httpClient.delete(this.baseUrl + 'employees', options);
-  }
+
   setEmployeeParams() {
     this.store.select(selectEmployeeParams).subscribe({
       next: (response) => {
@@ -108,6 +94,21 @@ export class EmployeeService {
         return response.body;
       })
     );
+  }
+  deleteEmployee(employee: IEmployee) {
+    const options = {
+      body: {
+        id: employee.id,
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        age: employee.age,
+        salary: employee.salary,
+        departmentId: employee.departmentId,
+        designationId: employee.designationId,
+        imageUrl: employee.imageUrl,
+      },
+    };
+    return this.httpClient.delete(this.baseUrl + 'employees', options);
   }
   loadEmployeeFormPage() {
     return this.httpClient.get(this.baseUrl + 'employees/formpagedata');

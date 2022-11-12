@@ -1,0 +1,38 @@
+<div class="ems-header">{{ this.pageTitle }}</div>
+<div class="row mt-2 ems-body">
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="id" style="display: none" />
+    <input type="text" formControlName="companyId" style="display: none" />
+    <div class="row">
+      <div class="col">
+        <app-text-input
+          formControlName="name"
+          [label]="'Name'"
+        ></app-text-input>
+      </div>
+      <div class="col">
+        <app-text-input
+          formControlName="description"
+          [label]="'Description'"
+        ></app-text-input>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-auto">
+        <button
+          type="submit"
+          [disabled]="!departmentForm.valid"
+          class="btn btn-success btn-sm"
+        >
+          {{ departmentForm.value.id ? "Update" : "Create" }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-danger btn-sm" (click)="reset()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

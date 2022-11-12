@@ -33,9 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.selectedRowId = -1;
     });
   }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnDestroy(): void {}
 
   rowClicked(id: number) {
     this.selectedRowId = id;

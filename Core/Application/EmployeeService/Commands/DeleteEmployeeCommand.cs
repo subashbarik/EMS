@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.EmployeeService.Commands
 {
-    public record DeleteEmployeeCommand(EmployeeDto employee):IRequest<int>;
+    public sealed record DeleteEmployeeCommand(EmployeeDto employee):IRequest<int>;
    
 }

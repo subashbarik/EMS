@@ -46,7 +46,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private actions$: Actions,
+    private actions: Actions,
     private toastrService: ToastrService
   ) {}
 
@@ -55,7 +55,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
 
     //subscribe to the deleteEmployeeSuccess action
     // if delete is success then refresh the page
-    this.empDeleteStatusSubscription = this.actions$
+    this.empDeleteStatusSubscription = this.actions
       .pipe(ofType(deleteEmployeeSuccess))
       .subscribe({
         next: (response) => {

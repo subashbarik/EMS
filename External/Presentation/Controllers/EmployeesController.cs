@@ -7,7 +7,7 @@ using Domain.Specifications;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+
 
 namespace Presentation.Controllers
 {
@@ -33,7 +33,7 @@ namespace Presentation.Controllers
             return Ok(await _mediator.Send(new GetEmployeeByIdQuery(id)));
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [RequestSizeLimit(long.MaxValue)]
         public async Task<ActionResult<EmployeeDto>> CreateEmployee([FromForm] EmployeeDto employee)
         {
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
             return Ok(await _mediator.Send(new UpdateEmployeeCommand(employee)));
         }
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<int>> DeleteEmployee(EmployeeDto employee)
         {
             return Ok(await _mediator.Send(new DeleteEmployeeCommand(employee)));

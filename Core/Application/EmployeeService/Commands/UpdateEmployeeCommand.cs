@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.EmployeeService.Commands
 {
-    public record UpdateEmployeeCommand(EmployeeDto employee):IRequest<EmployeeDto>;
+    public sealed record UpdateEmployeeCommand(EmployeeDto employee):IRequest<EmployeeDto>;
     
 }
