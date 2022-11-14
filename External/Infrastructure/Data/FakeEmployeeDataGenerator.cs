@@ -43,8 +43,8 @@ namespace Infrastructure.Data
                                                            ORMFrameWork ormFrameWork = ORMFrameWork.EF)
         {
             List<Employee> employees = new();
-            int minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId;
-            minDepartmentId = maxDepartmentId = minDesignationId = maxDesignationId = 0;
+            int minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId,minEmployeeTypeId,maxEmployeeTypeId;
+            minDepartmentId = maxDepartmentId = minDesignationId = maxDesignationId = minEmployeeTypeId = maxEmployeeTypeId = 0;
 
             if (insertRecords)
             {
@@ -54,7 +54,8 @@ namespace Infrastructure.Data
                 outPutParams.Add(new DbParam { Name = "maxDepartmentId", Value = null, DataType = DbType.Int32 });
                 outPutParams.Add(new DbParam { Name = "minDesignationId", Value = null, DataType = DbType.Int32 });
                 outPutParams.Add(new DbParam { Name = "maxDesignationId", Value = null, DataType = DbType.Int32 });
-
+                outPutParams.Add(new DbParam { Name = "minEmployeeTypeId", Value = null, DataType = DbType.Int32 });
+                outPutParams.Add(new DbParam { Name = "maxEmployeeTypeId", Value = null, DataType = DbType.Int32 });
                 // Must have Department and Designation data for the min and max to work
 
                 var outPut = await _dapper.ExecuteWithParams("usp_GetMinAndMaxIdValues",null,outPutParams);
@@ -63,20 +64,22 @@ namespace Infrastructure.Data
                 maxDepartmentId = Convert.ToInt32(outPut["maxDepartmentId"]);
                 minDesignationId = Convert.ToInt32(outPut["minDesignationId"]);
                 maxDesignationId = Convert.ToInt32(outPut["maxDesignationId"]);
+                minEmployeeTypeId =Convert.ToInt32(outPut["minEmployeeTypeId"]);
+                maxEmployeeTypeId =Convert.ToInt32(outPut["maxEmployeeTypeId"]);
                 
             }
             Stopwatch stopwatch = new Stopwatch();
             if (ormFrameWork == ORMFrameWork.Dapper)
             {
                 stopwatch.Start();
-                employees = await InsertDataWithDapper(noOfRecords, insertRecords, minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId);
+                employees = await InsertDataWithDapper(noOfRecords, insertRecords, minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId,minEmployeeTypeId,maxEmployeeTypeId);
                 stopwatch.Stop();
                 _logger.LogInformation("Elapsed Time is {0} ms Dapper", stopwatch.ElapsedMilliseconds);
             }
             else if (ormFrameWork == ORMFrameWork.EF)
             {
                 stopwatch.Start();
-                employees = await InsertDataWithEF(noOfRecords, insertRecords, minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId);
+                employees = await InsertDataWithEF(noOfRecords, insertRecords, minDepartmentId, maxDepartmentId, minDesignationId, maxDesignationId,minEmployeeTypeId,maxEmployeeTypeId);
                 stopwatch.Stop();
                 _logger.LogInformation("Elapsed Time is {0} ms EF", stopwatch.ElapsedMilliseconds);
             }
@@ -87,7 +90,9 @@ namespace Infrastructure.Data
                                                             int minDepartmentId,
                                                             int maxDepartmentId,
                                                             int minDesignationId,
-                                                            int maxDesignationId)
+                                                            int maxDesignationId,
+                                                            int minEmployeeTypeId,
+                                                            int maxEmployeeTypeId)
         {
             List<Employee> employees = new();
             var empTable = new DataTable();
@@ -98,7 +103,7 @@ namespace Infrastructure.Data
             empTable.Columns.Add("ImageUrl", typeof(string));
             empTable.Columns.Add("DepartmentId", typeof(int));
             empTable.Columns.Add("DesignationId", typeof(int));
-
+            empTable.Columns.Add("EmployeeTypeId", typeof(int));
             for (int i = 0; i < noOfRecords; i++)
             {
                 
@@ -106,14 +111,16 @@ namespace Infrastructure.Data
                 employee.FirstName = Name.First();
                 employee.LastName = Name.Last();
                 employee.Age = RandomNumber.Next(8, 100);
-                employee.Salary = RandomNumber.Next(2000, 10000);
+                employee.Basic = RandomNumber.Next(2000, 10000);
                 employee.ImageUrl = _options.Value.NoImageEmployeePath;
                 if (insertRecords)
                 {
                     employee.DepartmentId = RandomNumber.Next(minDepartmentId, maxDepartmentId);
                     employee.DesignationId = RandomNumber.Next(minDesignationId, maxDesignationId);
+                    employee.EmployeeTypeId = RandomNumber.Next(minEmployeeTypeId, maxEmployeeTypeId);
                 }
-                empTable.Rows.Add(employee.FirstName,employee.LastName,employee.Age,employee.Salary,employee.ImageUrl,employee.DepartmentId,employee.DesignationId);
+                empTable.Rows.Add(employee.FirstName,employee.LastName,employee.Age,employee.
+                   Basic,employee.ImageUrl,employee.DepartmentId,employee.DesignationId);
             }
             int count = await _dapper.BulkInsertAsync(empTable, "usp_BulkInsertEmployee", "EmployeeUDT");
             return employees;
@@ -123,7 +130,9 @@ namespace Infrastructure.Data
                                                             int minDepartmentId,
                                                             int maxDepartmentId,
                                                             int minDesignationId,
-                                                            int maxDesignationId)
+                                                            int maxDesignationId,
+                                                            int minEmployeeTypeId,
+                                                            int maxEmployeeTypeId)
         {
             List<Employee> employees = new();
             for (int i = 0; i < noOfRecords; i++)
@@ -132,7 +141,7 @@ namespace Infrastructure.Data
                 employee.FirstName = Name.First();
                 employee.LastName = Name.Last();
                 employee.Age = RandomNumber.Next(8, 100);
-                employee.Salary = RandomNumber.Next(2000, 10000);
+                //employee.Salary.Basic = RandomNumber.Next(2000, 10000);
                 employee.ImageUrl = _options.Value.NoImageEmployeePath;
 
                 //Create a user info in the identity table for the employee
@@ -159,6 +168,7 @@ namespace Infrastructure.Data
                 {
                     employee.DepartmentId = RandomNumber.Next(minDepartmentId, maxDepartmentId);
                     employee.DesignationId = RandomNumber.Next(minDesignationId, maxDesignationId);
+                    employee.EmployeeTypeId = RandomNumber.Next(minEmployeeTypeId, maxEmployeeTypeId);
                 }
                 employees.Add(employee);
                 if (insertRecords)

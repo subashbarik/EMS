@@ -23,7 +23,7 @@ namespace Application.EmployeeService.Commands
         private readonly IGenericDapperRepository _dapper;
         private readonly IMapper _mapper;
         private readonly IImageProcessor _imgProcessor;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IOptions<AppConfigurationOptions> _options;
 
         public UpdateEmployeeHandler(
@@ -31,7 +31,7 @@ namespace Application.EmployeeService.Commands
             IGenericDapperRepository dapper,
             IMapper mapper,
             IImageProcessor imgProcessor,
-            IHostingEnvironment hostingEnvironment,
+            IWebHostEnvironment hostingEnvironment,
             IOptions<AppConfigurationOptions> options)
         {
             _unitOfWork = unitOfWork;
@@ -86,8 +86,10 @@ namespace Application.EmployeeService.Commands
                 var retval = await _unitOfWork.Complete();
                 if (retval > 0)
                 {
-                    EmployeeSpecParams empSpecParams = new() ;
-                    empSpecParams.Id = employee.Id;
+                    EmployeeSpecParams empSpecParams = new()
+                    {
+                        Id = employee.Id
+                    };
                     var spec = new EmployeeWithDepartmentAndDesignationByIdSpec(empSpecParams);
                     var employeeWithDeptandDesig = await _unitOfWork.Repository<Employee>().GetEntityWithSpec(spec);
                     output = _mapper.Map<Employee, EmployeeDto>(employeeWithDeptandDesig);

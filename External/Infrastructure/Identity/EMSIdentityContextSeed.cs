@@ -13,6 +13,7 @@ namespace Infrastructure.Identity
             {
                 if (!roleManager.Roles.Any())
                 {
+                    await roleManager.CreateAsync(new IdentityRole(Role.SysAdmin));
                     await roleManager.CreateAsync(new IdentityRole(Role.Admin));
                     await roleManager.CreateAsync(new IdentityRole(Role.User));
                 }
@@ -31,7 +32,11 @@ namespace Infrastructure.Identity
                 var createdUser = await userManager.FindByEmailAsync("subash.barik@gmail.com");
                 if (createdUser != null)
                 {
-                    // If User is not assigned with Admin Role then assign it
+                    // If User is not assigned with Roles then assign it
+                    if (!await userManager.IsInRoleAsync(createdUser, Role.SysAdmin))
+                    {
+                        await userManager.AddToRoleAsync(createdUser, Role.SysAdmin);
+                    }
                     if (!await userManager.IsInRoleAsync(createdUser, Role.Admin))
                     {
                         await userManager.AddToRoleAsync(createdUser, Role.Admin);

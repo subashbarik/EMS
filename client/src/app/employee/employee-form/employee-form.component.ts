@@ -140,8 +140,8 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         employee ? employee.age : null,
         [Validators.required, AgeValidator],
       ],
-      salary: [
-        employee ? employee.salary : null,
+      basic: [
+        employee ? employee.basic : null,
         [Validators.required, SalaryValidator],
       ],
       departmentId: [
@@ -173,7 +173,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       '',
       imageUrl,
       this.imageFile,
-      employeeData.salary,
+      employeeData.basic,
       employeeData.departmentId,
       employeeData.designationId,
       this.removeImage

@@ -74,7 +74,7 @@ export class EmployeeService {
     formData.append('DesignationName', employee.designationName);
     formData.append('ImageUrl', employee.imageUrl);
     formData.append('ImageFile', employee.imageFile);
-    formData.append('Salary', employee.salary.toString());
+    formData.append('Basic', employee.basic.toString());
     formData.append('DepartmentId', employee.departmentId.toString());
     formData.append('DesignationId', employee.designationId.toString());
     formData.append('removeImage', employee.removeImage.toString());
@@ -102,7 +102,7 @@ export class EmployeeService {
         firstName: employee.firstName,
         lastName: employee.lastName,
         age: employee.age,
-        salary: employee.salary,
+        basic: employee.basic,
         departmentId: employee.departmentId,
         designationId: employee.designationId,
         imageUrl: employee.imageUrl,

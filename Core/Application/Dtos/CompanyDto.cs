@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos
 {
-    public class CompanyDto
-    {
-        public int Id { get; set; }
+    public class CompanyDto: BaseEntityDto
+    {   
         public string Name { get; set; }
         public string LogoUrl { get; set; }
         public string Description { get; set; }
+        
     }
 }

@@ -8,6 +8,7 @@ namespace Application.Statics
 {
     public static class Role
     {
+        public static string SysAdmin { get; set; } = "SysAdmin";
         public static string Admin { get; set; } = "Admin";
         public static string User { get; set; } = "User";
     }

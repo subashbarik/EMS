@@ -4,12 +4,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations
 {
-    internal class DesignationConfiguration : IEntityTypeConfiguration<Designation>
+    public class DesignationConfiguration : BaseEntityConfigurations<Designation>
     {
-        public void Configure(EntityTypeBuilder<Designation> builder)
+        public override void Configure(EntityTypeBuilder<Designation> builder)
         {
-            builder.Property(p => p.Id).IsRequired().UseIdentityColumn();
+            base.Configure(builder);
+            builder.HasAlternateKey(p => p.Name);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(20);
+            builder.Property(p => p.Basic).HasDefaultValue(0);
+            builder.Property(p => p.TAPercentage).HasDefaultValue(0);
+            builder.Property(p => p.DAPercentage).HasDefaultValue(0);
+            builder.Property(p => p.HRAPercentage).HasDefaultValue(0);
+            builder.Property(p => p.Description).HasMaxLength(500);
         }
     }
 }

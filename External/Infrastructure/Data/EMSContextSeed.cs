@@ -20,7 +20,6 @@ namespace Infrastructure.Data
                     var company = JsonSerializer.Deserialize<Company>(companyData);
 
                     List<Designation> designations= new();
-
                     if (!context.Designations.Any())
                     {
                         var designationData = File.ReadAllText("../External/Infrastructure/Data/SeedData/designations.json");
@@ -29,6 +28,18 @@ namespace Infrastructure.Data
                         foreach (var designation in designations)
                         {
                             context.Designations.Add(designation);
+                        }
+                    }
+
+                    List<EmployeeType> empTypes= new();
+                    if (!context.EmployeeTypes.Any())
+                    {
+                        var empTypeData = File.ReadAllText("../External/Infrastructure/Data/SeedData/employeetypes.json");
+                        empTypes = JsonSerializer.Deserialize<List<EmployeeType>>(empTypeData);
+
+                        foreach (var emp in empTypes)
+                        {
+                            context.EmployeeTypes.Add(emp);
                         }
                     }
 
@@ -48,12 +59,14 @@ namespace Infrastructure.Data
                                     foreach (var employee in developerEmployees)
                                     {
                                         employee.Designation = designations.Find(d => d.Name.ToLower() == "developer");
+                                        employee.EmployeeType = empTypes.First(et => et.Name.ToLower() == "contract");
                                         department.Employees.Add(employee);
                                     }
                                     var seniorDeveloperEmployees = await fakeEmployeeGenerator.GenerateFakeData(10);
                                     foreach (var employee in seniorDeveloperEmployees)
                                     {
                                         employee.Designation = designations.Find(d => d.Name.ToLower() == "senior developer");
+                                        employee.EmployeeType = empTypes.First(et => et.Name.ToLower() == "permanent");
                                         department.Employees.Add(employee);
                                     }
                                     break;
@@ -63,6 +76,7 @@ namespace Infrastructure.Data
                                     foreach (var employee in hrEmployees)
                                     {
                                         employee.Designation = designations.Find(d => d.Name.ToLower() == "hr manager");
+                                        employee.EmployeeType = empTypes.First(et => et.Name.ToLower() == "permanent");
                                         department.Employees.Add(employee);
                                     }
                                     break;
@@ -72,6 +86,7 @@ namespace Infrastructure.Data
                                     foreach (var employee in salesEmployees)
                                     {
                                         employee.Designation = designations.Find(d => d.Name.ToLower() == "sales manager");
+                                        employee.EmployeeType = empTypes.First(et => et.Name.ToLower() == "permanent");
                                         department.Employees.Add(employee);
                                     }
                                     break;
@@ -81,6 +96,7 @@ namespace Infrastructure.Data
                                     foreach (var employee in supportEmployees)
                                     {
                                         employee.Designation = designations.Find(d => d.Name.ToLower() == "support manager");
+                                        employee.EmployeeType = empTypes.First(et => et.Name.ToLower() == "contract");
                                         department.Employees.Add(employee);
                                     }
                                     break;

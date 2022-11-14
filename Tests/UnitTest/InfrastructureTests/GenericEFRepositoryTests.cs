@@ -39,7 +39,7 @@ namespace InfrastructureTests
                 Assert.Equal(expected.FirstName, actual.FirstName);
                 Assert.Equal(expected.LastName, actual.LastName);
                 Assert.Equal(expected.Age, actual.Age);
-                Assert.Equal(expected.Salary, actual.Salary);
+                Assert.Equal(expected.Basic, actual.Basic);
                 Assert.Equal(expected.DepartmentId, actual.DepartmentId);
                 Assert.Equal(expected.DesignationId, actual.DesignationId);
             }

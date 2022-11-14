@@ -35,7 +35,7 @@ export interface IEmployee {
   age: number;
   designationName: string;
   departmentName: string;
-  salary: number;
+  basic: number;
   imageUrl: string;
   imageFile: File;
   departmentId: number;
@@ -51,7 +51,7 @@ export class Employee implements IEmployee {
   departmentName: string;
   imageUrl: string;
   imageFile: File;
-  salary: number;
+  basic: number;
   departmentId: number;
   designationId: number;
   removeImage: boolean;
@@ -64,7 +64,7 @@ export class Employee implements IEmployee {
     departmentName?: string,
     imageUrl?: string,
     imageFile?: File,
-    salary?: number,
+    basic?: number,
     departmentId?: number,
     designationId?: number,
     removeImage?: boolean
@@ -77,7 +77,7 @@ export class Employee implements IEmployee {
     this.departmentName = departmentName;
     this.imageUrl = imageUrl;
     this.imageFile = imageFile;
-    this.salary = salary;
+    this.basic = basic;
     this.departmentId = departmentId;
     this.designationId = designationId;
     this.removeImage = removeImage;

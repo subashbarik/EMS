@@ -21,14 +21,14 @@ namespace Application.EmployeeService.Commands
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IImageProcessor _imgProcessor;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IOptions<AppConfigurationOptions> _options;
 
         public InsertEmployeeHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IImageProcessor imgProcessor,
-            IHostingEnvironment hostingEnvironment,
+            IWebHostEnvironment hostingEnvironment,
             IOptions<AppConfigurationOptions> options)
         {
             _unitOfWork = unitOfWork;

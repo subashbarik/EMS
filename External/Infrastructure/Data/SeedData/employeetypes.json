@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "Permanent",
+    "Description": "Permanent Employee"
+  },
+  {
+    "Name": "Contract",
+    "Description": "Contract Employee"
+  }
+]

@@ -26,10 +26,10 @@ namespace Domain.Specifications
                 switch (employeeParams.Sort)
                 {
                     case "salaryAsc":
-                        AddOrderBy(e => e.Salary);
+                        AddOrderBy(e => e.Basic);
                         break;
                     case "salaryDesc":
-                        AddOrderByDescending(e => e.Salary);
+                        AddOrderByDescending(e => e.Basic);
                         break;
                     default:
                         AddOrderBy(n => n.FirstName);
