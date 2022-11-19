@@ -12,7 +12,12 @@ export const selectAllDesignations = createSelector(
 );
 
 //status selector
-export const designationLoadingStatus = createSelector(
+export const designationActionStatus = createSelector(
   designationState,
   (state: IDesignationState) => state.status
 );
+// selector for a single designation by id
+export const selectDesignation = (id: number) =>
+  createSelector(selectAllDesignations, (designations) =>
+    designations.find((designation) => designation.id === id)
+  );
