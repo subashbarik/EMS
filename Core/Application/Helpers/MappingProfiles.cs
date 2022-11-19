@@ -17,8 +17,22 @@ namespace Application.Helpers
                 .ForMember(ed => ed.ImageUrl, e => e.MapFrom<EmployeeNoImageResolver>());
             CreateMap<EmployeeDto, EmployeeDto>()
                 .ForMember(e => e.ImageUrl, ed => ed.MapFrom<EmployeeUrlResolver>());
-            CreateMap<DepartmentDto,Department>();
+
+            CreateMap<DepartmentDto, Department>()
+                            .ForMember(dd => dd.UpdatedDate,
+                                    d => d.MapFrom<UpdatedDateResolver<DepartmentDto, Department>>())
+                            .ForMember(dd => dd.UpdatedUTCDate,
+                                d => d.MapFrom<UpdatedUTCDateResolver<DepartmentDto, Department>>());
+                            
+
             CreateMap<Department,DepartmentDto>();
+            CreateMap<DesignationDto, Designation>()
+                    .ForMember(dd => dd.UpdatedDate,
+                                d => d.MapFrom<UpdatedDateResolver<DesignationDto, Designation>>())
+                    .ForMember(dd => dd.UpdatedUTCDate,
+                                d => d.MapFrom<UpdatedUTCDateResolver<DesignationDto, Designation>>());
+                    
+            CreateMap<Designation, DesignationDto>();
         }
     }
 }
