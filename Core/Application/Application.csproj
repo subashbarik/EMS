@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Subash\Projects\Demo\Angular\EMS\Web\bin\Debug\net6.0\Presentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

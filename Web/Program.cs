@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using Web;
 using Web.Extensions;
 using Web.Filters;
@@ -33,7 +35,71 @@ builder.Services.AddCors(opt =>
 //builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen( c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Description = "Contains API Infomation for Employee Management System version1",
+        TermsOfService =  new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Codeventurer Pvt. Ltd.",
+            Email = "subash.barik@gmail.com",
+            Url = new Uri("https://example.com"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Use under OpenApiLicense",
+            Url = new Uri("https://example.com/license"),
+        }
+    });
+    c.SwaggerDoc("v2", new OpenApiInfo
+    {
+        Version = "v2",
+        Description = "Contains API Infomation for Employee Management System version2",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Codeventurer Pvt. Ltd.",
+            Email = "barik.subash@gmail.com",
+            Url = new Uri("https://example.com"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Use under OpenApiLicense",
+            Url = new Uri("https://example.com/license"),
+        }
+    });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    // Sets up global security requirement - not need for now may be needed later
+    //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    //{
+    //    {
+    //        new OpenApiSecurityScheme
+    //        {
+
+    //            Reference = new OpenApiReference
+    //            {
+    //                Type=ReferenceType.SecurityScheme,
+    //                Id="Bearer"
+    //            }
+    //        },new string[]{}
+    //    }
+    //});
+    // Set the comments path for the Swagger JSON and UI.    
+    var xmlFile = $"{presentationAssembly.GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});  
 
 var app = builder.Build();
 
@@ -47,7 +113,11 @@ app.UseExceptionHandler("/api/error");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Api v1");
+        c.SwaggerEndpoint("/swagger/v2/swagger.json", "EMS Api v2");
+    });
 }
 
 
