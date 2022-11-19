@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { InitialLoadComponent } from './components/initial-load/initial-load.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { UnsaveddataDialogComponent } from './components/dialogs/unsaveddata-dialog/unsaveddata-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
     UnknownErrorComponent,
     InitialLoadComponent,
     ConfirmDialogComponent,
+    UnsaveddataDialogComponent,
   ],
   imports: [
     CommonModule,
