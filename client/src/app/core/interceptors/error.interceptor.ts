@@ -5,9 +5,10 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { NavigationExtras, Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { genericApiRetrySetting } from '../generic/genericRetryStrategy';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -18,6 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
+      retry(genericApiRetrySetting()),
       catchError((error) => {
         if (error) {
           if (error.status === 400) {
