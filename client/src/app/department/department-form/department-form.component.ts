@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { ComponentCanDeactivate } from 'src/app/shared/models/candeactivate';
 import { ICompany } from 'src/app/shared/models/company';
 import { Department, IDepartment } from 'src/app/shared/models/department';
 import { selectCompanyInfo } from 'src/app/state/appglobal/appglobal.selectors';
@@ -24,7 +25,9 @@ import {
   templateUrl: './department-form.component.html',
   styleUrls: ['./department-form.component.scss'],
 })
-export class DepartmentFormComponent implements OnInit, OnDestroy {
+export class DepartmentFormComponent
+  implements OnInit, OnDestroy, ComponentCanDeactivate
+{
   public mode = 'ADD';
   public pageTitle = 'Create Department';
   public departmentForm: FormGroup;
@@ -50,6 +53,9 @@ export class DepartmentFormComponent implements OnInit, OnDestroy {
     private actions$: Actions,
     private router: Router
   ) {}
+  canDeactivate(): boolean | Observable<boolean> {
+    return !this.departmentForm.dirty;
+  }
 
   ngOnInit(): void {
     this.companyInfo$.subscribe({

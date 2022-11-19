@@ -10,9 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, map, Subscription } from 'rxjs';
+import { combineLatest, map, Observable, Subscription } from 'rxjs';
 import { AgeValidator } from 'src/app/shared/custom-validators/age-validator';
 import { SalaryValidator } from 'src/app/shared/custom-validators/salary-validator';
+import { ComponentCanDeactivate } from 'src/app/shared/models/candeactivate';
 import {
   IEmployee,
   IEmployeeFormData,
@@ -41,7 +42,9 @@ import {
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss'],
 })
-export class EmployeeFormComponent implements OnInit, OnDestroy {
+export class EmployeeFormComponent
+  implements OnInit, OnDestroy, ComponentCanDeactivate
+{
   public mode = 'ADD';
   public pageTitle = 'Create Employee';
   public employeeForm: FormGroup;
@@ -88,6 +91,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private actions$: Actions
   ) {}
+  canDeactivate(): boolean | Observable<boolean> {
+    return !this.employeeForm.dirty;
+  }
 
   ngOnInit(): void {
     this.globalSubscription = this.global$.subscribe({
@@ -142,7 +148,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       ],
       basic: [
         employee ? employee.basic : null,
-        [Validators.required, SalaryValidator],
+        [Validators.required, Validators.maxLength(6), SalaryValidator],
       ],
       departmentId: [
         employee ? employee.departmentId : null,
