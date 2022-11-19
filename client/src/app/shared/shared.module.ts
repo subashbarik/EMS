@@ -6,6 +6,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
 import { TableComponent } from './components/table/table.component';
 import { SelectInputComponent } from './components/select-input/select-input.component';
 import { PagerComponent } from './components/pager/pager.component';
+import { StringmaxlengthPipe } from './pipes/stringmaxlength.pipe';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { PagerComponent } from './components/pager/pager.component';
     TableComponent,
     SelectInputComponent,
     PagerComponent,
+    StringmaxlengthPipe,
   ],
   imports: [CommonModule, ReactiveFormsModule, PaginationModule.forRoot()],
   exports: [
@@ -22,6 +24,7 @@ import { PagerComponent } from './components/pager/pager.component';
     TableComponent,
     SelectInputComponent,
     PagerComponent,
+    StringmaxlengthPipe,
   ],
 })
 export class SharedModule {}

@@ -12,5 +12,6 @@ namespace Application.Options
         public string EmployeeImagePath { get; set; }
         public int MaxImageSizeInKB { get; set; }
         public string NoImageEmployeePath { get; set; }
+        public string UIDateTimeFormat { get; set; }
     }
 }

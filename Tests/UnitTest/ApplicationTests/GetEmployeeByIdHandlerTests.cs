@@ -14,6 +14,7 @@ namespace ApplicationTests
         [Fact]
         public async void GetEmployeeByIdHandler_Handle_With_Id_PresentInDB()
         {
+            CancellationToken cancellationToken = new();
             using (var mock = AutoMock.GetLoose())
             {
                 //Arrange
@@ -22,7 +23,7 @@ namespace ApplicationTests
                 Employee employee = GetEmployee(id);
 
                 mock.Mock<IUnitOfWork>()
-                    .Setup(x => x.Repository<Employee>().GetByIdAsync(id))
+                    .Setup(x => x.Repository<Employee>().GetByIdAsync(id,cancellationToken))
                     .ReturnsAsync(employee);
                 mock.Mock<IMapper>()
                     .Setup(x => x.Map<Employee, EmployeeDto>(employee))
@@ -56,6 +57,7 @@ namespace ApplicationTests
         [Fact]
         public async void GetEmployeeByIdHandler_Handle_With_Id_Not_PresentInDB()
         {
+            CancellationToken cancellationToken = new();
             using (var mock = AutoMock.GetLoose())
             {
                 //Arrange
@@ -64,7 +66,7 @@ namespace ApplicationTests
                 Employee employee = GetEmployee(id);
 
                 mock.Mock<IUnitOfWork>()
-                    .Setup(x => x.Repository<Employee>().GetByIdAsync(id))
+                    .Setup(x => x.Repository<Employee>().GetByIdAsync(id,cancellationToken))
                     .ReturnsAsync(employee);
                 mock.Mock<IMapper>()
                     .Setup(x => x.Map<Employee, EmployeeDto>(employee))

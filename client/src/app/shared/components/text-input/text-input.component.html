@@ -30,7 +30,11 @@
       >Invalid age. Input valid whole number between 20 to 80</span
     >
     <span *ngIf="controlDir.control.errors?.salary"
-      >Invalid salary. Salary range allowed between 4000 to 10000</span
+      >Invalid Basic salary. Basic salary range allowed between 4000 to
+      10000</span
+    >
+    <span *ngIf="controlDir.control.errors?.percentage"
+      >Invalid Percentage. Percentage range allowed between 0 to 1</span
     >
     <span *ngIf="controlDir.control.errors?.maxlength"
       >Maximum length allowed is

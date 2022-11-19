@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { combineLatest, map, Subscription } from 'rxjs';
 
 import { DialogService } from '../core/dialog.service';
-import { EmployeeService } from '../employee/employee.service';
 import { IDepartment } from '../shared/models/department';
 import {
   deleteDepartment,
@@ -13,7 +12,7 @@ import {
   loadDepartments,
 } from '../state/department/department.actions';
 import {
-  departmentLoadingStatus,
+  departmentActionStatus,
   selectAllDepartments,
   selectDepartment,
 } from '../state/department/department.selectors';
@@ -25,7 +24,7 @@ import {
 })
 export class DepartmentListComponent implements OnInit, OnDestroy {
   public departments$ = this.store.select(selectAllDepartments);
-  public departmentLoadingStatus$ = this.store.select(departmentLoadingStatus);
+  public departmentLoadingStatus$ = this.store.select(departmentActionStatus);
 
   public department: IDepartment;
   public vm$ = combineLatest([

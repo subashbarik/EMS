@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DesignationService\NewFolder\**" />
+    <EmbeddedResource Remove="DesignationService\NewFolder\**" />
+    <None Remove="DesignationService\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 

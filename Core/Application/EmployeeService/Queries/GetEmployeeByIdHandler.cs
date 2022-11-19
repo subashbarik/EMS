@@ -23,7 +23,7 @@ namespace Application.EmployeeService.Queries
 
         public async Task<Dtos.EmployeeDto> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
         {   
-            var employee = await _unitOfWork.Repository<Employee>().GetByIdAsync(request.Id);
+            var employee = await _unitOfWork.Repository<Employee>().GetByIdAsync(request.Id,cancellationToken);
             var data = _mapper.Map<Employee, EmployeeDto>(employee);
             if(data == null)
             {

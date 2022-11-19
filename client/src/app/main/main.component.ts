@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
+import { CoreService } from '../core/core.service';
 import {
   loadGlobal,
   loadGlobalSuccess,
@@ -29,14 +30,17 @@ export class MainComponent implements OnInit {
   constructor(
     private store: Store,
     private actions: Actions,
-    private router: Router
+    private router: Router,
+    private coreService: CoreService
   ) {}
   ngOnInit(): void {
     // loads all global dependents of the application
     // such as app configurations, Company Info in the web server
     this.store.dispatch(loadGlobal());
     this.actions.pipe(ofType(loadGlobalSuccess)).subscribe({
-      next: (response) => {},
+      next: (response) => {
+        this.coreService.setGlobalDataFromStore();
+      },
     });
 
     this.router.navigate(['/main/home']);

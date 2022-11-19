@@ -3,4 +3,5 @@ export interface IServerAppConfiguration {
   employeeImagePath: string;
   maxImageSizeInKB: number;
   noImageEmployeePath: string;
+  uiDateTimeFormat: string;
 }

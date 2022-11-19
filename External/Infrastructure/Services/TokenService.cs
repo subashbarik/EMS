@@ -71,7 +71,7 @@ namespace Infrastructure.Services
                     IssuerSigningKey = _key
                 }, out SecurityToken validatedToken);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

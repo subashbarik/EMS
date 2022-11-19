@@ -8,9 +8,11 @@ namespace Infrastructure.Data.Configurations
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-             builder.Property(p => p.Id).IsRequired().UseIdentityColumn();
-             builder.Property(p => p.CreatedDate).IsRequired().HasDefaultValueSql("getdate()");
-             builder.Property(p => p.UpdatedDate).IsRequired().HasDefaultValueSql("getdate()");
+            builder.Property(p => p.Id).IsRequired().UseIdentityColumn();
+            builder.Property(p => p.CreatedDate).IsRequired().HasDefaultValueSql("getdate()");
+            builder.Property(p => p.UpdatedDate).IsRequired().HasDefaultValueSql("getdate()");
+            builder.Property(p => p.CreatedUTCDate).IsRequired().HasDefaultValueSql("getutcdate()");
+            builder.Property(p => p.UpdatedUTCDate).IsRequired().HasDefaultValueSql("getutcdate()");
         }
     }
 }

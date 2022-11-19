@@ -24,14 +24,12 @@ namespace Presentation.Controllers
         }
         [HttpPost]
         [Authorize(Roles ="Admin")]
-        [RequestSizeLimit(long.MaxValue)]
         public async Task<ActionResult<DepartmentDto>> CreateDepartment([FromForm] DepartmentDto department)
         {
             return Ok(await _mediator.Send(new InsertDepartmentCommand(department)));
         }
         [HttpPut]
         [Authorize(Roles ="Admin")]
-        [RequestSizeLimit(long.MaxValue)]
         public async Task<ActionResult<DepartmentDto>> UpdateDepartment([FromForm] DepartmentDto department)
         {
             return Ok(await _mediator.Send(new UpdateDepartmentCommand(department)));

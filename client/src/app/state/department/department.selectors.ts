@@ -10,13 +10,6 @@ export const selectAllDepartments = createSelector(
   departmentState,
   (state: IDepartmentState) => state.departments
 );
-
-//status selector
-export const departmentLoadingStatus = createSelector(
-  departmentState,
-  (state: IDepartmentState) => state.status
-);
-
 //status selector
 export const departmentActionStatus = createSelector(
   departmentState,

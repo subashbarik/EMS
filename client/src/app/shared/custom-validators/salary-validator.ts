@@ -9,7 +9,7 @@ export function SalaryValidator(
   if (isNaN(Number(ctlVal.toString()))) {
     return { salary: true };
   }
-  if (ctlVal < 4000 || ctlVal > 10000) {
+  if (ctlVal < 0 || ctlVal > 10000) {
     return { salary: true };
   }
   return null;

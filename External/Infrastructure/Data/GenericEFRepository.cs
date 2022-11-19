@@ -20,28 +20,28 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id,CancellationToken cancellationToken=default)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await _context.Set<T>().FindAsync(id,cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken=default)
         {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
+            return await _context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
-        public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+        public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec,CancellationToken cancellationToken=default)
         { 
-            var output = await ApplySpecification(spec).ToListAsync();
+            var output = await ApplySpecification(spec).ToListAsync(cancellationToken);
             return output;
         }
 
-        public async Task<int> CountAsync(ISpecification<T> spec)
+        public async Task<int> CountAsync(ISpecification<T> spec,CancellationToken cancellationToken=default)
         {
-            return await ApplySpecification(spec).CountAsync();
+            return await ApplySpecification(spec).CountAsync(cancellationToken);
         }
 
         public void Add(T entity)
@@ -53,6 +53,9 @@ namespace Infrastructure.Data
         {
             _context.Set<T>().Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            //Created date property should never be updated hence below code
+            _context.Entry(entity).Property(p => p.CreatedDate).IsModified = false;
+            _context.Entry(entity).Property(p => p.CreatedUTCDate).IsModified = false;
         }
 
         public void Delete(T entity)

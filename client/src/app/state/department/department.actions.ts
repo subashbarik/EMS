@@ -7,7 +7,7 @@ export const loadDepartmentsSuccess = createAction(
   props<{ departments: IDepartment[] }>()
 );
 export const addDepartment = createAction(
-  '[departments form] Add',
+  '[department form] Add',
   props<{ department: IDepartment }>()
 );
 export const addDepartmentSuccess = createAction(

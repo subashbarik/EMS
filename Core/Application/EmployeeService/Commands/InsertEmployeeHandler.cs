@@ -43,7 +43,6 @@ namespace Application.EmployeeService.Commands
             string fileName = "";
             bool fileSaved = true;
             var appCnfOptions = _options.Value;
-
             //Save image if provided
             if (request.employee.ImageFile != null)
             {
