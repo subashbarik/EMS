@@ -18,12 +18,12 @@ namespace Application.DepartmentService.Commands
         public async Task<DepartmentDto> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
         {
             DepartmentDto output = null;
-            var department = _mapper.Map<DepartmentDto, Department>(request.department);
+            var department = _mapper.Map<DepartmentDto, Department>(request.Department);
                 _unitOfWork.Repository<Department>().Update(department);
                 var retval = await _unitOfWork.Complete();
                 if (retval > 0)
                 {
-                    var updatedDepartment = await _unitOfWork.Repository<Department>().GetByIdAsync(department.Id);
+                    var updatedDepartment = await _unitOfWork.Repository<Department>().GetByIdAsync(department.Id,cancellationToken);
                     output = _mapper.Map<Department, DepartmentDto>(updatedDepartment);
                 }
             return output;

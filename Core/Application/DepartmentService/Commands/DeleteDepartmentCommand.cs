@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.DepartmentService.Commands
 {
-    public sealed record DeleteDepartmentCommand(DepartmentDto department):IRequest<int>;
+    public sealed record DeleteDepartmentCommand(DepartmentDto Department):IRequest<int>;
 }

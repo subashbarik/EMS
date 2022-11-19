@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.DepartmentService.Commands
 {
-    public sealed record UpdateDepartmentCommand(DepartmentDto department):IRequest<DepartmentDto>;
+    public sealed record UpdateDepartmentCommand(DepartmentDto Department):IRequest<DepartmentDto>;
 }

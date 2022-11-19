@@ -22,7 +22,7 @@ namespace Application.DepartmentService.Commands
         public async Task<DepartmentDto> Handle(InsertDepartmentCommand request, CancellationToken cancellationToken)
         {
             DepartmentDto output = null;
-            var department = _mapper.Map<DepartmentDto,Department>(request.department);
+            var department = _mapper.Map<DepartmentDto,Department>(request.Department);
             _unitOfWork.Repository<Department>().Add(department);
             var retval = await _unitOfWork.Complete();
             if (retval > 0)

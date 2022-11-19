@@ -18,7 +18,7 @@ namespace Application.DepartmentService.Commands
         }
         public async Task<int> Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
         {
-             var department = _mapper.Map<DepartmentDto, Department>(request.department);
+             var department = _mapper.Map<DepartmentDto, Department>(request.Department);
             _unitOfWork.Repository<Department>().Delete(department);
             var retval = await _unitOfWork.Complete();
             return retval;
