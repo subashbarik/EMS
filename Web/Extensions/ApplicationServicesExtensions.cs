@@ -33,6 +33,7 @@ namespace Web.Extensions
             services.AddScoped<ICustomException, CustomException>();
             services.AddScoped<IImageProcessor, ImageProcessor>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPDFGenerator, PDFGenerator>();
 
             // Setup for validation errors to return error 
             // in the way we want
