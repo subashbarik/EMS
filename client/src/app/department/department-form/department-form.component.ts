@@ -137,6 +137,7 @@ export class DepartmentFormComponent
         .subscribe({
           next: (response: any) => {
             if (response) {
+              this.toastrService.success('Department updated successfully.');
               this.router.navigate(['/main/departments/']);
             }
           },
