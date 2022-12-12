@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Web;
@@ -19,6 +20,24 @@ var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
 builder.Services.AddControllers()
                 .AddApplicationPart(presentationAssembly);
 
+// API versioning configuration
+builder.Services.AddApiVersioning(o =>
+{
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+    o.ReportApiVersions = true;
+    o.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("X-Version"),
+        new MediaTypeApiVersionReader("ver"));
+});
+builder.Services.AddVersionedApiExplorer(
+    options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
+// End API versioning 
 //Add Appplication services such as DI and Others
 builder.Services.AddApplicationServices();
 //Add Database services
@@ -29,7 +48,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200","http://localhost:4300");
     });
 });
 //builder.Services.AddControllers();
@@ -80,6 +99,19 @@ builder.Services.AddSwaggerGen( c =>
         BearerFormat = "JWT",
         Scheme = "bearer"
     });
+
+    /*
+        // Basic authentication
+        c.AddSecurityDefinition("basic", new OpenApiSecurityScheme  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.Http,  
+                    Scheme = "basic",  
+                    In = ParameterLocation.Header,  
+                    Description = "Basic Authorization header using the Bearer scheme."  
+                });  
+    */
+    
     // Sets up global security requirement - not need for now may be needed later
     //c.AddSecurityRequirement(new OpenApiSecurityRequirement
     //{
@@ -95,6 +127,23 @@ builder.Services.AddSwaggerGen( c =>
     //        },new string[]{}
     //    }
     //});
+    /*
+    // Basic security requirement
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement  
+                {  
+                    {  
+                          new OpenApiSecurityScheme  
+                            {  
+                                Reference = new OpenApiReference  
+                                {  
+                                    Type = ReferenceType.SecurityScheme,  
+                                    Id = "basic"  
+                                }  
+                            },  
+                            new string[] {}  
+                    }  
+                }); 
+    */
     // Set the comments path for the Swagger JSON and UI.    
     var xmlFile = $"{presentationAssembly.GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -110,15 +159,25 @@ var app = builder.Build();
 app.UseExceptionHandler("/api/error");
 //app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI(c =>
+//    {
+//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Api v1");
+//        c.SwaggerEndpoint("/swagger/v2/swagger.json", "EMS Api v2");
+//    });
+//}
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Api v1");
-        c.SwaggerEndpoint("/swagger/v2/swagger.json", "EMS Api v2");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMS Api v1");
+    c.SwaggerEndpoint("/swagger/v2/swagger.json", "EMS Api v2");
+    // When we deploy the API , swagger page will be show by default 
+    c.RoutePrefix = string.Empty;
+});
+
 
 
 //  We can replace the above two milleware with this UseFileServe middleware
