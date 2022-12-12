@@ -1,3 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 using Web;
 using Web.Extensions;
 
@@ -12,6 +17,15 @@ var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
 //applying error handling filter to catch errors in place of middleware
 // builder.Services.AddControllers(options => options.Filters.Add<ExceptionHandlingFilterAttribute>())
 //                 .AddApplicationPart(presentationAssembly);
+
+
+var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration)
+                    .Enrich.FromLogContext().CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+//Log.Logger = new LoggerConfiguration().CreateBootstrapLogger();
+//builder.Host.UseSerilog(((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration)));
+
 
 builder.Services.AddControllers()
                 .AddApplicationPart(presentationAssembly);
@@ -41,6 +55,8 @@ var app = builder.Build();
 // app.Lifetime.ApplicationStopping.Register(OnStopping);
 // app.Lifetime.ApplicationStopped.Register(OnStopped);
 app.UseExceptionHandler("/api/error");
+//app.UseSerilogRequestLogging();
+
 //app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -94,4 +110,5 @@ app.Run();
 // {
 // Console.WriteLine("EMS Stopped");
 // }
+
 
