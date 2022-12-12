@@ -7,7 +7,7 @@ namespace Domain.Interfaces
     {
         Task<T> GetByIdAsync(int id,CancellationToken cancellationToken);
         Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken);
-        Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<T> GetEntityWithSpecAsync(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec,CancellationToken cancellationToken);
         Task<int> CountAsync(ISpecification<T> spec,CancellationToken cancellationToken);
 

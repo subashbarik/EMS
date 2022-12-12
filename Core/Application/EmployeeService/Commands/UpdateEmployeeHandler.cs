@@ -91,7 +91,7 @@ namespace Application.EmployeeService.Commands
                         Id = employee.Id
                     };
                     var spec = new EmployeeWithDepartmentAndDesignationByIdSpec(empSpecParams);
-                    var employeeWithDeptandDesig = await _unitOfWork.Repository<Employee>().GetEntityWithSpec(spec);
+                    var employeeWithDeptandDesig = await _unitOfWork.Repository<Employee>().GetEntityWithSpecAsync(spec);
                     output = _mapper.Map<Employee, EmployeeDto>(employeeWithDeptandDesig);
                 }
             }

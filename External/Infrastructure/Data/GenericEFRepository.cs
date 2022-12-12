@@ -22,14 +22,14 @@ namespace Infrastructure.Data
         }
         public async Task<T> GetByIdAsync(int id,CancellationToken cancellationToken=default)
         {
-            return await _context.Set<T>().FindAsync(id,cancellationToken);
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken=default)
         {
             return await _context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
-        public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
+        public async Task<T> GetEntityWithSpecAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
