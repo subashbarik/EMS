@@ -6,6 +6,7 @@ namespace Domain.Interfaces
     {
         
         Task<int> CountData(string storedProcedure);
+        Task<int> CountDataAsync<T>(string storedProcedure, T parameters);
         Task<int> SaveData<T>(string storedProcedure, T parameters);
         Task<List<T>> LoadData<T, U>(string storedProcedure, U parameters);
         Task<int> CountDataSqlAsync(string sql);

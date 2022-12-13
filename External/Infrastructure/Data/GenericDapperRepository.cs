@@ -56,6 +56,14 @@ namespace Infrastructure.Data
                 return count;
             }
         }
+        public async Task<int> CountDataAsync<T>(string storedProcedure, T parameters)
+        {
+            using (IDbConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                var count = await conn.ExecuteScalarAsync<int>(storedProcedure, parameters,commandType: CommandType.StoredProcedure);
+                return count;
+            }
+        }
         public async Task<int> CountDataSqlAsync(string sql)
         {
             using (IDbConnection conn = new SqlConnection(GetConnectionString()))
