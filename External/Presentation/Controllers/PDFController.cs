@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.PDFService.Commands;
 using MediatR;
 
 namespace Presentation.Controllers
 {
-    public class TestController:BaseApiController
+    public class PDFController:BaseApiController
     {
        private readonly IMediator _mediator;
-        public TestController(IMediator mediator)
+        public PDFController(IMediator mediator)
         {
             _mediator = mediator;
         }
