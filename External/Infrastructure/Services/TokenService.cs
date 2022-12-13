@@ -24,6 +24,8 @@ namespace Infrastructure.Services
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.DisplayName),
+                // added for logging in the log table - used in the ErrorController
+                new Claim(ClaimTypes.NameIdentifier, user.Id), 
             };
             foreach (var role in Roles)
             {

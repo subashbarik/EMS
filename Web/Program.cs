@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using Serilog.Extensions.Logging;
 using Web;
 using Web.Extensions;
 
@@ -20,7 +21,8 @@ var presentationAssembly = typeof(Presentation.AssemblyReference).Assembly;
 
 
 var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration)
-                    .Enrich.FromLogContext().CreateLogger();
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 //Log.Logger = new LoggerConfiguration().CreateBootstrapLogger();

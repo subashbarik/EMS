@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using Presentation.Errors;
 using System.Net;
 using Domain.Errors;
+using Serilog.Context;
+using System.Security.Claims;
 
 namespace Presentation.Controllers
 {
@@ -39,7 +41,11 @@ namespace Presentation.Controllers
                 httpStatusCode = (int)HttpStatusCode.InternalServerError;
             }
 
+                
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Guest";
+            LogContext.PushProperty("UserId", userId);
             _logger.LogError(exception, exception.Message);
+            //_logger.LogError("{Message}{Messagetemplate}{Level}{TimeStamp}{Exception}", exception.Message, exception.Message,"Error", DateTime.Now, exception);
             var response = _env.IsDevelopment() ?
                                 new ApiException(httpStatusCode, exception.Message, exception.StackTrace.ToString()) :
                                 new ApiException(httpStatusCode);
