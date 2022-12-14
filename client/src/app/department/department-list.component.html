@@ -14,12 +14,20 @@
           <ng-template #headers>
             <td>Name</td>
             <td>Description</td>
+            <td>Created Date</td>
+            <td>Updated Date</td>
             <td></td>
             <td></td>
           </ng-template>
           <ng-template #rows let-row>
             <td>{{ row.name }}</td>
             <td>{{ row.description }}</td>
+            <td>
+              {{ row.createdDate | date : serverAppConfig.uiDateTimeFormat }}
+            </td>
+            <td>
+              {{ row.updatedDate | date : serverAppConfig.uiDateTimeFormat }}
+            </td>
             <td>
               <a routerLink="/main/departments/update/{{ row.id }}">
                 <i
