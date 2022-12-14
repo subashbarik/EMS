@@ -9,6 +9,7 @@ export const setEmployeeParams = createAction(
   '[employee] set params',
   props<{ params: IEmployeeParams }>()
 );
+export const resetEmployeeParams = createAction('[employee] reset params');
 
 export const addEmployee = createAction(
   '[employee form] Add',

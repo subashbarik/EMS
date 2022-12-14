@@ -9,6 +9,7 @@ import {
   deleteEmployeeSuccess,
   loadEmployees,
   loadEmployeesSuccess,
+  resetEmployeeParams,
   setEmployeeParams,
 } from '../state/employee/employee.actions';
 import {
@@ -75,6 +76,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadEmployees());
   }
   ngOnDestroy(): void {
+    this.store.dispatch(resetEmployeeParams());
     this.empDeleteStatusSubscription.unsubscribe();
   }
 }

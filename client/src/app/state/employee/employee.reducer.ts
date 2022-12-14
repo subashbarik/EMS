@@ -20,6 +20,7 @@ import {
   updateEmployeeSuccess,
   deleteEmployeeSuccess,
   setEmployeeParams,
+  resetEmployeeParams,
 } from './employee.actions';
 
 export interface IEmployeeState {
@@ -45,6 +46,10 @@ export const employeeReducer = createReducer(
   on(setEmployeeParams, (state, { params }) => ({
     ...state,
     employeeParams: params,
+  })),
+  on(resetEmployeeParams, (state) => ({
+    ...state,
+    employeeParams: new EmployeeParams(),
   })),
   on(addEmployee, (state, { employee }) => ({
     ...state,

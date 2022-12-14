@@ -14,7 +14,5 @@ export class EmployeeDetailsComponent implements OnInit {
   );
   constructor(private store: Store, private router: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    console.log(+this.router.snapshot.paramMap.get('id'));
-  }
+  ngOnInit(): void {}
 }
