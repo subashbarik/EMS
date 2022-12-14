@@ -39,4 +39,8 @@ export class TableComponent implements OnInit, OnDestroy {
     this.selectedRowId = id;
     this.tableService.onRowClicked(id);
   }
+  rowDoubleClick(id: number) {
+    this.selectedRowId = id;
+    this.tableService.onRowDblClick(id);
+  }
 }

@@ -41,6 +41,11 @@ const routes: Routes = [
             (mod) => mod.DesignationModule
           ),
       },
+      {
+        path: 'logs',
+        loadChildren: () =>
+          import('../log/log.module').then((mod) => mod.LogModule),
+      },
     ],
   },
 ];

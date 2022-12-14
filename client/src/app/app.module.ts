@@ -20,6 +20,8 @@ import { GlobalEffects } from './state/appglobal/appglobal.effects';
 import { accountReducer } from './state/account/account.reducer';
 import { AccountEffects } from './state/account/account.effects';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { logReducer } from './state/log/log.reducer';
+import { LogEffect } from './state/log/log.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +36,7 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
       empState: employeeReducer,
       deptState: departmentReducer,
       desigState: designationReducer,
+      logState: logReducer,
       globalState: globalReducer,
     }),
     EffectsModule.forRoot([
@@ -41,6 +44,7 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
       EmployeeEffects,
       DepartmentEffects,
       DesignationEffect,
+      LogEffect,
       GlobalEffects,
     ]),
   ],

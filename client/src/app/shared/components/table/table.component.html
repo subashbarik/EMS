@@ -13,6 +13,7 @@
     <tr
       *ngFor="let row of data"
       (click)="rowClicked(row.id)"
+      (dblclick)="rowDoubleClick(row.id)"
       [ngClass]="selectedRowId === row.id ? 'ems-table-tr' : ''"
     >
       <ng-container
