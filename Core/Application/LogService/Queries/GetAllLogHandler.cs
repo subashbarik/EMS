@@ -1,16 +1,10 @@
-﻿using Domain.Interfaces;
-using Domain.Entities;
-using MediatR;
-using AutoMapper;
-using Application.Dtos;
-using Domain.Specifications;
-using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Application.Dtos;
 using Application.Types;
-using Domain.Types;
-using Application.EmployeeService.Queries;
+using Domain.Entities;
+using Domain.Interfaces;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using System.Text;
 
 namespace Application.LogService.Queries
 {
