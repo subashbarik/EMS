@@ -8,6 +8,7 @@ using Web;
 using Web.Extensions;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -81,7 +82,7 @@ app.UseSwaggerUI(c =>
 });
 
 
-
+app.MapGet("/deployment",() => System.Diagnostics.Process.GetCurrentProcess().ProcessName);
 //  We can replace the above two milleware with this UseFileServe middleware
 // app.UseFileServe();
 //app.UseHttpsRedirection();
