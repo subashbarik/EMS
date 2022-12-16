@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Web
 {
@@ -16,6 +17,7 @@ namespace Web
             var services = scope.ServiceProvider;
             var loggerFactory = services.GetRequiredService<ILoggerFactory>();
             var fakeEmployeeGenerator = services.GetRequiredService<IFakeEmployeeDataGenerator>();
+            var hostingEnvironment = services.GetRequiredService<IWebHostEnvironment>();
             try
             {
                 var identityContext = services.GetService<EMSIdentityContext>();
@@ -26,7 +28,7 @@ namespace Web
 
                 var context = services.GetService<EMSContext>();
                 await context.Database.MigrateAsync();
-                await EMSContextSeed.SeedAsync(context, loggerFactory, fakeEmployeeGenerator);
+                await EMSContextSeed.SeedAsync(context, loggerFactory, fakeEmployeeGenerator, hostingEnvironment);
 
                 
             }
