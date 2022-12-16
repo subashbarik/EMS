@@ -18,7 +18,7 @@ namespace Infrastructure.Data
         }
         private string GetConnectionString()
         {
-            return _config.GetConnectionString("DefaultConnection");
+            return _config.GetConnectionString("EMSContext");
         }
 
         public async Task<List<T>> LoadData<T, U>(string storedProcedure, U parameters)

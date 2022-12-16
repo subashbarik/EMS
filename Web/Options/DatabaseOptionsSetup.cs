@@ -14,7 +14,7 @@ namespace Web.Options
 
         public void Configure(DatabaseOptions options)
         {
-            var connectionString = _config.GetConnectionString("DefaultConnection");
+            var connectionString = _config.GetConnectionString("EMSContext");
             options.ConnectionString = connectionString;
             _config.GetSection(DatabaseConfigurationSectionName).Bind(options);
         }

@@ -34,9 +34,10 @@ namespace Web.Extensions
                 // we can just restart the app and it will take effect without the need of
                 // re-deployment
                 var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
-                
+
                 // additional configuration like below that can be set
-                option.UseSqlServer(databaseOptions.ConnectionString, sqlOptionsAction => {
+                option.UseSqlServer(databaseOptions.ConnectionString, sqlOptionsAction =>
+                {
                     sqlOptionsAction.CommandTimeout(databaseOptions.CommandTimeOut);
                 });
                 option.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
@@ -50,7 +51,7 @@ namespace Web.Extensions
             services.AddDbContext<EMSIdentityContext>((serviceProvider,options) =>
             {
                 var config = serviceProvider.GetRequiredService<IConfiguration>();
-                options.UseSqlServer(config.GetConnectionString("IdentityConnection"));
+                options.UseSqlServer(config.GetConnectionString("EMSIdentityContext"));
             });
             services.AddIdentityCore<AppUser>(options =>
             {
