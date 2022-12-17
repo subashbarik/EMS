@@ -19,19 +19,33 @@ namespace Presentation.Controllers
         {
             _mediator = mediator;
         }
+        /// <summary>
+        /// Gets a list of employees
+        /// </summary>
+        /// <param name="employeeParams"></param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult<Pagination<EmployeeDto>>> GetEmployees([FromQuery]EmployeeSpecParams employeeParams)
         {
             return Ok(await _mediator.Send(new GetAllEmployeeQuery(employeeParams)));
         }
-
+        /// <summary>
+        /// Gets the details of a employee based on the passed in id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<EmployeeDto>> GetEmployeeById(int id)
         {   
             return Ok(await _mediator.Send(new GetEmployeeByIdQuery(id)));
         }
+        /// <summary>
+        /// Creates an employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles ="Admin")]
         [RequestSizeLimit(long.MaxValue)]
@@ -45,6 +59,11 @@ namespace Presentation.Controllers
         {
             return Ok(await _mediator.Send(new GetEmployeeFormPageQuery()));
         }
+        /// <summary>
+        /// Updates an employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpPut]
         [Authorize]
         [RequestSizeLimit(long.MaxValue)]
@@ -52,6 +71,11 @@ namespace Presentation.Controllers
         {
             return Ok(await _mediator.Send(new UpdateEmployeeCommand(employee)));
         }
+        /// <summary>
+        /// Deletes an employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult<int>> DeleteEmployee(EmployeeDto employee)

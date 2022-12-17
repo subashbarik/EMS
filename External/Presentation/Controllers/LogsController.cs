@@ -22,6 +22,11 @@ namespace Presentation.Controllers
         {
             _mediator = mediator;
         }
+        /// <summary>
+        /// Gets the application logs such as Information, Errors etc
+        /// </summary>
+        /// <param name="logParams"></param>
+        /// <returns></returns>
         [HttpGet]
         //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<Pagination<LogDto>>> GetLogs([FromQuery] LogSpecParams logParams)

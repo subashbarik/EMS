@@ -14,6 +14,10 @@ namespace Presentation.Controllers
         {
             _mediator = mediator;
         }
+        /// <summary>
+        /// Initializes some global data such as config etc for the client application.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<GlobalModel>> GetGlobalAppData()
         {

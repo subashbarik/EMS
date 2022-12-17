@@ -13,12 +13,12 @@ namespace Presentation.Controllers
         //     _context = context;
         // }
 
-        [HttpGet("testauth")]
-        [Authorize]
-        public ActionResult<string> GetSecretText()
-        {
-            return "secret stuff";
-        }
+        //[HttpGet("testauth")]
+        //[Authorize]
+        //public ActionResult<string> GetSecretText()
+        //{
+        //    return "secret stuff";
+        //}
 
         // [HttpGet("notfound")]
         // public ActionResult GetNotFoundRequest()
@@ -39,18 +39,29 @@ namespace Presentation.Controllers
 
         //     return Ok();
         // }
-
+        /// <summary>
+        /// Generates an bad response (http 400 response) for testing purpose
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
             return BadRequest(new ApiResponse(400));
         }
-
+        /// <summary>
+        /// Generates an resource not found response (http 404 response) for testing purpose
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("badrequest/{id}")]
         public ActionResult GetNotFoundRequest(int id)
         {
-            return Ok();
+            return BadRequest(new ApiResponse(404));
         }
+        /// <summary>
+        /// Generates an index out of bound error for testing purpose
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("indexoutofbound")]
         public ActionResult IndexOutOfBound()
         {
