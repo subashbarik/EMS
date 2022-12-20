@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 import { Login } from 'src/app/shared/models/user';
 import {
   loginUser,
+  loginUserError,
   loginUserSuccess,
 } from 'src/app/state/account/account.actions';
 import { accountLoadingStatus } from 'src/app/state/account/account.selectors';
@@ -29,8 +30,11 @@ import { AccountService } from '../account.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  public signInProgress = false;
   public loginForm: FormGroup;
-  public loginUserStatusSubscription = new Subscription();
+  public loginUserSuccessSubscription = new Subscription();
+  public loginUserFailureSubscription = new Subscription();
+
   public loginStatus$ = this.store.select(accountLoadingStatus);
   @ViewChild('rememberme', { static: false }) rememberMe: ElementRef;
   constructor(
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createLoginForm();
-    this.loginUserStatusSubscription = this.actions$
+    this.loginUserSuccessSubscription = this.actions$
       .pipe(ofType(loginUserSuccess))
       .subscribe({
         next: (response) => {
@@ -54,13 +58,21 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
             this.router.navigate(['/main']);
           }
+          this.signInProgress = false;
           // If there is any api response error then show it to the user
         },
-        error: (error) => {},
+      });
+    this.loginUserFailureSubscription = this.actions$
+      .pipe(ofType(loginUserError))
+      .subscribe({
+        next: (response) => {
+          this.signInProgress = false;
+        },
       });
   }
   ngOnDestroy(): void {
-    this.loginUserStatusSubscription.unsubscribe();
+    this.loginUserSuccessSubscription.unsubscribe();
+    this.loginUserFailureSubscription.unsubscribe();
   }
   createLoginForm() {
     this.loginForm = new FormGroup({
@@ -72,6 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   onSubmit() {
+    this.signInProgress = true;
     let login = new Login(
       this.loginForm.value.email,
       this.loginForm.value.password

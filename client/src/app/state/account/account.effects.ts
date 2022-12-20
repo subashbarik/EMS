@@ -7,6 +7,7 @@ import {
   loadUser,
   loadUserSuccess,
   loginUser,
+  loginUserError,
   loginUserSuccess,
   logOutUser,
   logOutUserSuccess,
@@ -25,7 +26,8 @@ export class AccountEffects {
       ofType(loginUser),
       switchMap((request) =>
         from(this.accService.login(request.login)).pipe(
-          map((response: any) => loginUserSuccess({ user: response }))
+          map((response: any) => loginUserSuccess({ user: response })),
+          catchError((error) => of(loginUserError({ error: error })))
         )
       )
     )

@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public registerUserSuccessSubscription = new Subscription();
   public registerUserFailureSubscription = new Subscription();
   public registerStatus$ = this.store.select(accountLoadingStatus);
+  public registerInProgress = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -41,6 +42,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.router.navigate(['/main']);
           }
           // If there is any api response error then show it to the user
+          this.registerInProgress = false;
         },
       });
     this.registerUserFailureSubscription = this.actions$
@@ -48,6 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           this.errors = response.error.errors.Password || response.error.errors;
+          this.registerInProgress = false;
         },
       });
   }

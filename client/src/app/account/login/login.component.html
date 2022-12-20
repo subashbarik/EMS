@@ -29,11 +29,12 @@
       <div class="d-flex justify-content-between">
         <div>
           <button
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || signInProgress"
             class="btn btn-primary"
             type="submit"
           >
             Sign in
+            <i *ngIf="signInProgress" class="fa fa-spinner fa-spin"></i>
           </button>
         </div>
         <div>
