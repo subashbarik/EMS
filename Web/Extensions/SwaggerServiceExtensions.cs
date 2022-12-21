@@ -64,15 +64,24 @@ namespace Web.Extensions
                         Url = new Uri("https://example.com/license"),
                     }
                 });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                //Configuration needed for the swagger to accept JWT token in the Swagger UI
+                var securitySchema = new OpenApiSecurityScheme
                 {
-                    In = ParameterLocation.Header,
-                    Description = "Please enter token",
+                    Description = "JWT Auth Bearer Scheme",
                     Name = "Authorization",
+                    In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "bearer"
-                });
+                    Scheme = "Bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                   
+                };
+                c.AddSecurityDefinition("Bearer", securitySchema);
+                 var securityRequirement = new OpenApiSecurityRequirement{{securitySchema, new[] {"Bearer"}}};
+                c.AddSecurityRequirement(securityRequirement);
 
                 /*
                     // Basic authentication
