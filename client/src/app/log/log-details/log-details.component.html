@@ -1,57 +1,68 @@
-<ng-container *ngIf="log$ | async as log">
-  <div class="ems-header">Log Details</div>
-  <div class="row mt-2 ems-body">
-    <div class="col-12">
-      <div class="row p-1 ems-log-details-header">
-        <div class="col-3">Id</div>
-        <div class="col-3">{{ log.id }}</div>
-        <div class="col-3">Type</div>
-        <div class="col-3">{{ log.level }}</div>
-      </div>
-      <div class="row p-1 ems-log-details-header">
-        <div class="col-3">Time Stamp</div>
-        <div class="col-3">
-          {{ log.timeStamp | date : serverAppConfig.uiDateTimeFormat }}
-        </div>
-        <div class="col-3">Message</div>
-        <div class="col-3">{{ log.message }}</div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">Details</div>
-        <div class="col-9 mr-1 ems-log-details-errordetails">
-          {{ log.exception }}
-        </div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">Souce Context</div>
-        <div class="col-3">{{ log.properties.sourceContext }}</div>
-        <div class="col-3">Action ID</div>
-        <div class="col-3">{{ log.properties.actionId }}</div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">Action Name</div>
-        <div class="col-3">{{ log.properties.actionName }}</div>
-        <div class="col-3">Request ID</div>
-        <div class="col-3">{{ log.properties.requestId }}</div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">Request Path</div>
-        <div class="col-3">{{ log.properties.requestPath }}</div>
-        <div class="col-3">Connection ID</div>
-        <div class="col-3">{{ log.properties.connectionId }}</div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">User Id</div>
-        <div class="col-3">{{ log.properties.userId }}</div>
-        <div class="col-3">Machine Name</div>
-        <div class="col-3">{{ log.properties.machineName }}</div>
-      </div>
-      <div class="row p-1">
-        <div class="col-3">Process Id</div>
-        <div class="col-3">{{ log.properties.processId }}</div>
-        <div class="col-3">Thread Id</div>
-        <div class="col-3">{{ log.properties.threadId }}</div>
+<div class="row ems-body">
+  <ng-container>
+    <div class="d-flex flex-row justify-content-between ems-header">
+      <div>Log Details</div>
+      <div>
+        <a href="#" routerLink="/main/logs" class="ems-a">Log List</a>
       </div>
     </div>
-  </div>
-</ng-container>
+    <div class="mt-2 ems-content">
+      <ng-container *ngIf="log$ | async as log">
+        <div class="row">
+          <div class="col-12">
+            <div class="row p-1 ems-log-details-header">
+              <div class="col-3">Id</div>
+              <div class="col-3">{{ log.id }}</div>
+              <div class="col-3">Type</div>
+              <div class="col-3">{{ log.level }}</div>
+            </div>
+            <div class="row p-1 ems-log-details-header">
+              <div class="col-3">Time Stamp</div>
+              <div class="col-3">
+                {{ log.timeStamp | date : serverAppConfig.uiDateTimeFormat }}
+              </div>
+              <div class="col-3">Message</div>
+              <div class="col-3">{{ log.message }}</div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">Details</div>
+              <div class="col-9 mr-1 ems-log-details-errordetails">
+                {{ log.exception }}
+              </div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">Souce Context</div>
+              <div class="col-3">{{ log.properties.sourceContext }}</div>
+              <div class="col-3">Action ID</div>
+              <div class="col-3">{{ log.properties.actionId }}</div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">Action Name</div>
+              <div class="col-3">{{ log.properties.actionName }}</div>
+              <div class="col-3">Request ID</div>
+              <div class="col-3">{{ log.properties.requestId }}</div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">Request Path</div>
+              <div class="col-3">{{ log.properties.requestPath }}</div>
+              <div class="col-3">Connection ID</div>
+              <div class="col-3">{{ log.properties.connectionId }}</div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">User Id</div>
+              <div class="col-3">{{ log.properties.userId }}</div>
+              <div class="col-3">Machine Name</div>
+              <div class="col-3">{{ log.properties.machineName }}</div>
+            </div>
+            <div class="row p-1">
+              <div class="col-3">Process Id</div>
+              <div class="col-3">{{ log.properties.processId }}</div>
+              <div class="col-3">Thread Id</div>
+              <div class="col-3">{{ log.properties.threadId }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

@@ -6,13 +6,23 @@
 body {
   //   background-color: $emsPrimaryThemeColor;
 }
+.ems-app-container {
+  width: 99vw;
+}
 .ems-header {
   background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
   font-size: 1.4rem;
+  height: 2rem;
 }
 .ems-body {
-  min-height: 75vh;
+  border: 1px solid $emsPrimaryThemeColor;
+  width: 83vw;
+  min-height: 90vh;
+  background-color: $emsPrimaryBodyBackGroundColor;
+}
+.ems-content {
+  min-height: 70vh;
 }
 .ems-profile-icon {
   color: $emsPrimaryThemeColor;

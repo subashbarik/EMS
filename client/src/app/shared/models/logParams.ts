@@ -6,6 +6,6 @@ export interface ILogParams {
 
 export class LogParams implements ILogParams {
   pageIndex = 1;
-  pageSize = 20;
+  pageSize = 15;
   level = '';
 }

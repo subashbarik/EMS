@@ -1,4 +1,10 @@
 @import "../../../../variable.scss";
+.ems-side-menu-body {
+  border: 1px solid $emsPrimaryThemeColor;
+  min-height: 90vh;
+  min-width: 8vh;
+  background-color: $emsPrimaryBodyBackGroundColor;
+}
 .ems-side-menu-header {
   background-color: $emsPrimaryThemeColor;
 }
@@ -7,4 +13,15 @@
 }
 .ems-side-menu-down-icon {
   color: $emsDownArrowColor;
+}
+.ems-side-menu-nav-link {
+  text-decoration: none;
+  color: #000000;
+}
+.ems-side-menu-nav-link:hover {
+  font-weight: 600;
+}
+.ems-side-menu-nav-link.active {
+  color: $emsPrimaryThemeColor;
+  font-weight: 600;
 }

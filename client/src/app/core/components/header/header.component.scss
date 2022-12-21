@@ -1,8 +1,12 @@
+@import "../../../../variable.scss";
+.ems-header-body {
+  background-color: rgb(243, 251, 251);
+  width: 98.8vw;
+}
 a {
   text-decoration: none;
-  color: #343a40;
-
-  &.active {
-    color: orange;
-  }
+  color: #000000;
+}
+a:hover {
+  font-weight: 600;
 }
