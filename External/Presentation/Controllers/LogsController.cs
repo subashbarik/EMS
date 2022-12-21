@@ -28,7 +28,7 @@ namespace Presentation.Controllers
         /// <param name="logParams"></param>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Pagination<LogDto>>> GetLogs([FromQuery] LogSpecParams logParams)
         {
             return Ok(await _mediator.Send(new GetAllLogQuery(logParams)));

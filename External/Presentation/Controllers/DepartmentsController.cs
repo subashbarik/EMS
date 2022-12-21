@@ -22,7 +22,7 @@ namespace Presentation.Controllers
         /// <param name="departmentParams"></param>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<Pagination<DepartmentDto>>> GetDepartments([FromQuery]DepartmentSpecParams departmentParams)
         {
             return Ok(await _mediator.Send(new GetAllDepartmentsQuery(departmentParams)));
