@@ -9,20 +9,29 @@ body {
 .ems-app-container {
   width: 99vw;
 }
+.ems-header-body {
+  background-color: rgb(217, 230, 230);
+  width: 98.8vw;
+}
 .ems-header {
   background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
   font-size: 1.4rem;
-  height: 2rem;
+  height: 4vh;
+  width: 83vw;
 }
 .ems-body {
   border: 1px solid $emsPrimaryThemeColor;
   width: 83vw;
-  min-height: 90vh;
+  height: 86vh;
   background-color: $emsPrimaryBodyBackGroundColor;
 }
 .ems-content {
-  min-height: 70vh;
+  // min-height: 70vh;
+}
+.ems-loading {
+  width: 83vw;
+  min-height: 90vh;
 }
 .ems-profile-icon {
   color: $emsPrimaryThemeColor;

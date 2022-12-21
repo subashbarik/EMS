@@ -1,12 +1,12 @@
-<div class="row ems-body">
-  <ng-container>
-    <div class="d-flex flex-row justify-content-between ems-header">
-      <div>Department List</div>
-      <div>
-        <a href="#" routerLink="/main/departments/add" class="ems-a">Create</a>
-      </div>
+<div class="row ems-header">
+  <div class="d-flex flex-row justify-content-between">
+    <div>Department List</div>
+    <div>
+      <a href="#" routerLink="/main/departments/add" class="ems-a">Create</a>
     </div>
-  </ng-container>
+  </div>
+</div>
+<div class="row ems-body">
   <div class="mt-2 ems-content">
     <ng-container *ngIf="vm$ | async as vm">
       <div *ngIf="vm.loadingStatus !== 'loading'; else loading">
@@ -51,7 +51,7 @@
         </ng-container>
       </div>
       <ng-template #loading>
-        <div class="ems-body">
+        <div class="ems-loading">
           <h3>Loading please wait..</h3>
         </div>
       </ng-template>

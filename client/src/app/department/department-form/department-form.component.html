@@ -1,16 +1,16 @@
-<div class="row ems-body">
-  <ng-container>
-    <div class="d-flex flex-row justify-content-between ems-header">
-      <div>
-        <a>{{ this.pageTitle }}</a>
-      </div>
-      <div>
-        <a href="#" routerLink="/main/departments" class="ems-a"
-          >Department List</a
-        >
-      </div>
+<div class="row ems-header">
+  <div class="d-flex flex-row justify-content-between">
+    <div>
+      <a>{{ this.pageTitle }}</a>
     </div>
-  </ng-container>
+    <div>
+      <a href="#" routerLink="/main/departments" class="ems-a"
+        >Department List</a
+      >
+    </div>
+  </div>
+</div>
+<div class="row ems-body">
   <div class="mt-2 ems-content">
     <div class="row">
       <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
