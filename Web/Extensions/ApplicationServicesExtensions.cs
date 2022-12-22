@@ -34,6 +34,7 @@ namespace Web.Extensions
             services.AddScoped<IImageProcessor, ImageProcessor>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPDFGenerator, PDFGenerator>();
+            services.AddScoped<IEmailService, EmailService>();
 
             // Setup for validation errors to return error 
             // in the way we want
