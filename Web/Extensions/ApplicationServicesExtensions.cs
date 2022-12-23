@@ -9,6 +9,10 @@ using Infrastructure.Data;
 using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Twilio.Clients;
+using Twilio;
+using Twilio.Http;
+using Infrastructure.Services.TwilioSms;
 
 namespace Web.Extensions
 {
@@ -26,6 +30,7 @@ namespace Web.Extensions
         {
             services.ConfigureOptions<AppConfigurationOptionsSetup>();
             services.ConfigureOptions<AppJwtTokenConfigurationOptionsSetup>();
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericEFRepository<>), typeof(GenericEFRepository<>));
             services.AddScoped<IGenericDapperRepository, GenericDapperRepository>();
@@ -34,7 +39,15 @@ namespace Web.Extensions
             services.AddScoped<IImageProcessor, ImageProcessor>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPDFGenerator, PDFGenerator>();
+
+            // SMTP email service setup
+            services.ConfigureOptions<AppEmailOptionsSetup>();
             services.AddScoped<IEmailService, EmailService>();
+
+            // Twilio SMS Service setup
+            services.ConfigureOptions<AppSmsOptionsSetup>();
+            services.AddScoped<ISmsService, TwilioSmsService>();
+            services.AddHttpClient<ITwilioRestClient, Infrastructure.Services.TwilioSms.TwilioClient>();
 
             // Setup for validation errors to return error 
             // in the way we want
