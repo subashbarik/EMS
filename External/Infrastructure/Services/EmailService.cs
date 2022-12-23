@@ -20,7 +20,7 @@ namespace Infrastructure.Services
             // if from email is not provided then take it from appSettings.json
             // Ideally it might always take from appSettings.json but kept it this
             // way just for flexibility , in case we need.
-            if (email.From is null || email.From.Trim() == "")
+            if (string.IsNullOrWhiteSpace(email.From))
             {
                 email.From = _emailOptions.Value.FromEmail;
                 email.Password = _emailOptions.Value.FromEmailPassword;
