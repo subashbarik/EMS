@@ -37,7 +37,7 @@ namespace Infrastructure.Services
             }
             foreach (var ccMail in email.CC)
             {
-                if (ccMail.Trim() != "")
+                if (!string.IsNullOrWhiteSpace(ccMail))
                 {
                     message.CC.Add(new MailAddress(ccMail));
                 }
@@ -45,7 +45,7 @@ namespace Infrastructure.Services
             }
             foreach (var bccMail in email.BCC)
             {
-                if(bccMail.Trim() != "")
+                if(!string.IsNullOrWhiteSpace(bccMail))
                 {
                     message.Bcc.Add(new MailAddress(bccMail));
                 }

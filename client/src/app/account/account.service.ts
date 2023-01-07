@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUser, Roles } from '../shared/models/user';
-import { selectToken, selectUser } from '../state/account/account.selectors';
+import { ILogin } from '../shared/models/user';
+import { accountTokenSelector } from '../state/account/account.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +23,7 @@ export class AccountService {
     return this.httpClient.get(this.baseUrl + 'account', { headers });
   }
 
-  login(values: any) {
+  login(values: ILogin) {
     return this.httpClient.post(this.baseUrl + 'account/login', values);
   }
 
@@ -46,7 +45,7 @@ export class AccountService {
   getJwtToken(): string {
     let token = localStorage.getItem('token');
     if (token === null) {
-      this.store.select(selectToken).subscribe({
+      this.store.select(accountTokenSelector).subscribe({
         next: (response) => {
           token = response;
         },

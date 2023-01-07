@@ -8,11 +8,15 @@ export const selectUser = createSelector(
   (state: IAccountState) => state.user
 );
 //status selector
-export const accountLoadingStatus = createSelector(
+export const accountStatusSelector = createSelector(
   accountState,
   (state: IAccountState) => state.status
 );
-export const selectToken = createSelector(
+export const accountTokenSelector = createSelector(
   accountState,
   (state: IAccountState) => state.user.token
+);
+export const accountErrorSelector = createSelector(
+  accountState,
+  (state: IAccountState) => state.error
 );

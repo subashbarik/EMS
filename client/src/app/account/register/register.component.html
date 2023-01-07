@@ -21,20 +21,25 @@
         [type]="'password'"
       ></app-text-input>
 
-      <ul class="text-danger list-unstyled" *ngIf="errors">
-        <li *ngFor="let error of errors">
+      <ul class="text-danger list-unstyled" *ngIf="registerError$ | async">
+        <li *ngFor="let error of registerError$ | async">
           {{ error }}
         </li>
       </ul>
       <div class="d-flex justify-content-between">
         <div>
           <button
-            [disabled]="registerForm.invalid || registerInProgress"
+            [disabled]="
+              registerForm.invalid || (registerStatus$ | async) == 'registering'
+            "
             class="btn btn-primary"
             type="submit"
           >
             Sign Up
-            <i *ngIf="registerInProgress" class="fa fa-spinner fa-spin"></i>
+            <i
+              *ngIf="(registerStatus$ | async) == 'registering'"
+              class="fa fa-spinner fa-spin"
+            ></i>
           </button>
         </div>
         <div>

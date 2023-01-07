@@ -1,5 +1,3 @@
-import { IApiValidationErrorResponse } from './apierrorresponse';
-
 export interface IUser {
   email: string;
   displayName: string;
@@ -10,6 +8,7 @@ export interface IUser {
 export interface ILogin {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 export interface IRegister {
   displayname: string;
@@ -19,9 +18,11 @@ export interface IRegister {
 export class Login implements ILogin {
   email: string;
   password: string;
-  constructor(email: string, password: string) {
+  rememberMe: boolean;
+  constructor(email: string, password: string, rememberMe: boolean) {
     this.email = email;
     this.password = password;
+    this.rememberMe = rememberMe;
   }
 }
 export class Register implements IRegister {

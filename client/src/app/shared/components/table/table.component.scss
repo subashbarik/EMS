@@ -7,9 +7,9 @@
   color: $emsPageHeaderColor;
   font-weight: 500;
 }
-// tbody tr:hover {
-//   background-color: $emsTableRowHoverColor;
-// }
+tbody tr:hover {
+  background-color: $emsTableRowHoverColor;
+}
 .ems-table-tr {
   background-color: $emsTableRowHoverColor;
 }

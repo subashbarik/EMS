@@ -18,6 +18,7 @@
       ></app-text-input>
       <div class="d-flex mb-2">
         <input
+          formControlName="rememberMe"
           type="checkbox"
           id="remme"
           name="remme"
@@ -29,12 +30,17 @@
       <div class="d-flex justify-content-between">
         <div>
           <button
-            [disabled]="loginForm.invalid || signInProgress"
+            [disabled]="
+              loginForm.invalid || (loginStatus$ | async) == 'logging in'
+            "
             class="btn btn-primary"
             type="submit"
           >
             Sign in
-            <i *ngIf="signInProgress" class="fa fa-spinner fa-spin"></i>
+            <i
+              *ngIf="(loginStatus$ | async) == 'logging in'"
+              class="fa fa-spinner fa-spin"
+            ></i>
           </button>
         </div>
         <div>

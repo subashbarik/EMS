@@ -5,6 +5,7 @@ import {
   loadUser,
   loadUserSuccess,
   loginUser,
+  loginUserError,
   loginUserSuccess,
   logOutUser,
   logOutUserSuccess,
@@ -29,19 +30,35 @@ export const initialState: IAccountState = {
 
 export const accountReducer = createReducer(
   initialState,
-  on(loginUser, (state) => ({
-    ...state,
-    status: 'logging',
-    error: '',
-    apiErrorResponse: null,
-  })),
-  on(loginUserSuccess, (state, { user: user }) => ({
-    ...state,
-    user: user,
-    status: 'success',
-    error: '',
-    apiErrorResponse: null,
-  })),
+  on(
+    loginUser,
+    (state): IAccountState => ({
+      ...state,
+      status: 'logging in',
+      error: '',
+      apiErrorResponse: null,
+    })
+  ),
+  on(
+    loginUserSuccess,
+    (state, action): IAccountState => ({
+      ...state,
+      user: action.user,
+      status: 'success',
+      error: '',
+      apiErrorResponse: null,
+    })
+  ),
+  on(
+    loginUserError,
+    (state, action): IAccountState => ({
+      ...state,
+      user: null,
+      status: 'login failed',
+      error: '',
+      apiErrorResponse: action.error,
+    })
+  ),
   on(logOutUser, (state) => ({
     ...state,
     status: 'logging out',
@@ -61,18 +78,18 @@ export const accountReducer = createReducer(
     error: '',
     apiErrorResponse: null,
   })),
-  on(registerUserSuccess, (state, { user: user }) => ({
+  on(registerUserSuccess, (state, action) => ({
     ...state,
-    user: user,
+    user: action.user,
     status: 'success',
     error: '',
     apiErrorResponse: null,
   })),
-  on(registerUserError, (state, { error: error }) => ({
+  on(registerUserError, (state, action) => ({
     ...state,
-    status: 'success',
-    error: '',
-    apiErrorResponse: error,
+    status: 'register failed',
+    error: action.error.errors.Password || action.error.errors,
+    apiErrorResponse: action.error,
   })),
   on(loadUser, (state) => ({
     ...state,
@@ -80,9 +97,9 @@ export const accountReducer = createReducer(
     error: '',
     apiErrorResponse: null,
   })),
-  on(loadUserSuccess, (state, { user: user }) => ({
+  on(loadUserSuccess, (state, action) => ({
     ...state,
-    user: user,
+    user: action.user,
     status: 'success',
     error: '',
     apiErrorResponse: null,
