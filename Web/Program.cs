@@ -57,7 +57,7 @@ var app = builder.Build();
 // app.Lifetime.ApplicationStarted.Register(OnStarted);
 // app.Lifetime.ApplicationStopping.Register(OnStopping);
 // app.Lifetime.ApplicationStopped.Register(OnStopped);
-app.UseExceptionHandler("/api/error");
+app.UseExceptionHandler("/api/error/appexception");
 //app.UseSerilogRequestLogging();
 
 //app.UseMiddleware<ExceptionMiddleware>();
@@ -80,6 +80,9 @@ app.UseSwaggerUI(c =>
     // When we deploy the API , swagger page will be show by default 
     c.RoutePrefix = string.Empty;
 });
+// If endpoint for a api request not found then we need 
+// below to result proper error
+app.UseStatusCodePagesWithReExecute("/api/error/apiendpointnotfound/{0}");
 
 
 app.MapGet("/deployment",() => System.Diagnostics.Process.GetCurrentProcess().ProcessName);

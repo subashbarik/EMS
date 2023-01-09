@@ -8,21 +8,31 @@ using System.Net;
 using Domain.Errors;
 using Serilog.Context;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Routing;
 
 namespace Presentation.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : BaseApiController
     {
         private readonly ILogger<ErrorController> _logger;
         private readonly IHostEnvironment _env;
-
+        /// <summary>
+        /// Constructor for the error controller
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="env"></param>
         public ErrorController(ILogger<ErrorController> logger,IHostEnvironment env)
         {
             _logger = logger;
             _env = env;
         }
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public IActionResult Error()
+        /// <summary>
+        /// Catches all the exceptions of the application
+        /// </summary>
+        /// <returns></returns>
+        [Route("appexception")]
+        public IActionResult ApiException()
         {
             int httpStatusCode;
             
@@ -50,6 +60,16 @@ namespace Presentation.Controllers
                                 new ApiException(httpStatusCode, exception.Message, exception.StackTrace.ToString()) :
                                 new ApiException(httpStatusCode);
             return Problem(title: response.Message,statusCode: httpStatusCode, detail: response.Details);
+        }
+        /// <summary>
+        /// Gets executed when Api Endpoint is not found
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [Route("apiendpointnotfound/{code}")]
+        public IActionResult ApiEndPointNotFoundError(int code)
+        {
+            return new ObjectResult(new ApiResponse(code));
         }
     }
 }
