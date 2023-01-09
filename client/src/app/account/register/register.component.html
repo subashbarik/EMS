@@ -1,12 +1,13 @@
 <div
-  class="d-flex align-items-center justify-content-center ems-main-div-height"
+  class="d-flex flex-column align-items-center justify-content-center ems-main-div-height"
 >
+  <div class="col-3 ems-register-form-header">
+    <div class="text-center">
+      <h4 class="font-weight-normal">Register</h4>
+    </div>
+  </div>
   <div class="col-3 ems-register-form-div">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-      </div>
-
       <app-text-input
         formControlName="displayName"
         [label]="'Display Name'"
