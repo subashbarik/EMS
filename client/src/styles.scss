@@ -8,25 +8,73 @@ body {
 }
 .ems-app-container {
   width: 99vw;
+  background-color: rgb(217, 230, 230);
 }
+// Header start
 .ems-header-body {
   background-color: rgb(217, 230, 230);
-  width: 98.8vw;
+  //width: 97vw;
 }
+// Header ends
+
+// Side menu start
+
+.ems-side-menu-body {
+  border: 1px solid $emsPrimaryThemeColor;
+  height: 90vh;
+  min-width: 8vh;
+  background-color: rgb(217, 230, 230);
+}
+
+.ems-side-menu-header {
+  background-color: $emsPrimaryThemeColor;
+}
+.ems-side-menu-header-caption {
+  color: #fff;
+}
+.ems-side-menu-down-icon {
+  color: $emsDownArrowColor;
+}
+.ems-side-menu-nav-link {
+  text-decoration: none;
+  color: #000000;
+}
+.ems-side-menu-nav-link:hover {
+  font-weight: 600;
+}
+.ems-side-menu-nav-link.active {
+  color: $emsPrimaryThemeColor;
+  font-weight: 600;
+}
+// side menu end
+
+//Body start
+
 .ems-header {
   background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
-  font-size: 1.4rem;
-  height: 4vh;
-  width: 83vw;
+  font-size: 1.2rem;
+  height: 3vh;
+  //width: 83vw;
 }
 .ems-body {
   border: 1px solid $emsPrimaryThemeColor;
-  width: 83vw;
-  height: 86vh;
+  //width: 83vw;
+  height: 87vh;
   background-color: $emsPrimaryBodyBackGroundColor;
   overflow: auto;
 }
+//body end
+
+// Footer start
+.ems-footer {
+  background-color: rgba($color: #818080, $alpha: 1);
+}
+.ems-footer-text {
+  color: #fff;
+}
+// Footer end
+
 .ems-content {
   // min-height: 70vh;
 }

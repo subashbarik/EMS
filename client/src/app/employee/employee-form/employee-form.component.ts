@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { combineLatest, map, Observable, Subscription } from 'rxjs';
+import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 import { AgeValidator } from 'src/app/shared/custom-validators/age-validator';
 import { SalaryValidator } from 'src/app/shared/custom-validators/salary-validator';
 import { ComponentCanDeactivate } from 'src/app/shared/models/candeactivate';
@@ -83,6 +85,8 @@ export class EmployeeFormComponent
   @Output() formSubmit: EventEmitter<IEmployeeFormData> =
     new EventEmitter<IEmployeeFormData>();
 
+  @ViewChild('tabset') tabset: TabsetComponent;
+
   constructor(
     private store: Store,
     private fb: FormBuilder,
@@ -138,6 +142,10 @@ export class EmployeeFormComponent
         employee ? employee.firstName : null,
         [Validators.required, Validators.maxLength(20)],
       ],
+      middleName: [
+        employee ? employee.middleName : null,
+        [Validators.maxLength(20)],
+      ],
       lastName: [
         employee ? employee.lastName : null,
         [Validators.required, Validators.maxLength(20)],
@@ -146,16 +154,35 @@ export class EmployeeFormComponent
         employee ? employee.age : null,
         [Validators.required, AgeValidator],
       ],
+      dob: [employee ? employee.dob : null, [Validators.required]],
+
+      hireDate: [employee ? employee.hireDate : null, [Validators.required]],
+      sex: [employee ? employee.sex : null, [Validators.required]],
+      address1: [employee ? employee.address1 : null, [Validators.required]],
+      address2: [employee ? employee.address2 : null, [Validators.required]],
+      city: [employee ? employee.city : null, [Validators.required]],
+      state: [employee ? employee.state : null, [Validators.required]],
+      zipCode: [employee ? employee.zipCode : null, [Validators.required]],
+      country: [employee ? employee.country : null, [Validators.required]],
       basic: [
         employee ? employee.basic : null,
         [Validators.required, Validators.maxLength(6), SalaryValidator],
       ],
+      taPercentage: [employee ? employee.taPercentage : null, []],
+      daPercentage: [employee ? employee.daPercentage : null, []],
+      hraPercentage: [employee ? employee.hraPercentage : null, []],
+      salary: [employee ? employee.salary : null, []],
+      description: [employee ? employee.description : null, []],
       departmentId: [
         employee ? employee.departmentId : null,
         [Validators.required],
       ],
       designationId: [
         employee ? employee.designationId : null,
+        [Validators.required],
+      ],
+      employeeTypeId: [
+        employee ? employee.employeeTypeId : null,
         [Validators.required],
       ],
       imageUrl: [null],
@@ -173,15 +200,32 @@ export class EmployeeFormComponent
     let employee = new Employee(
       empId,
       employeeData.firstName,
+      employeeData.middleName,
       employeeData.lastName,
       employeeData.age,
-      '',
-      '',
+      employeeData.dob,
+      employeeData.hireDate,
+      employeeData.sex,
+      employeeData.address1,
+      employeeData.address2,
+      employeeData.city,
+      employeeData.state,
+      employeeData.zipCode,
+      employeeData.country,
+      employeeData.basic,
+      employeeData.taPercentage,
+      employeeData.daPercentage,
+      employeeData.hraPercentage,
+      employeeData.salary,
       imageUrl,
       this.imageFile,
-      employeeData.basic,
+      employeeData.description,
       employeeData.departmentId,
       employeeData.designationId,
+      employeeData.employeeTypeId,
+      '',
+      '',
+      '',
       this.removeImage
     );
     if (this.mode === 'ADD') {

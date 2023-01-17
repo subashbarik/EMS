@@ -1,7 +1,15 @@
 <div class="ems-header-body">
   <ng-container *ngIf="currentUser$ | async as user">
     <div class="d-flex align-items-center justify-content-between">
-      <div>Company Logo Area</div>
+      <ng-container *ngIf="serverConfig$ | async as serverConfig">
+        <div>
+          <img
+            src="{{ serverConfig.apiUrl + serverConfig.logoPath }}"
+            class="img-fluid rounded-start"
+          />
+        </div>
+      </ng-container>
+
       <div>
         <ng-container *ngIf="user.isAdmin">
           <header class="d-flex justify-content-center py-3">

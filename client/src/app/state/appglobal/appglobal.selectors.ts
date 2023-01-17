@@ -22,3 +22,8 @@ export const selectCompanyInfo = createSelector(
   globalState,
   (state: IGlobalState) => state.global.companyInfo
 );
+// selector for company info
+export const selectAppConfiguration = createSelector(
+  globalState,
+  (state: IGlobalState) => state.global.serverAppConfigurations
+);
