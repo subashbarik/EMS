@@ -3,6 +3,7 @@ import { IApiValidationErrorResponse } from 'src/app/shared/models/apierrorrespo
 import { IUser } from 'src/app/shared/models/user';
 import {
   loadUser,
+  loadUserError,
   loadUserSuccess,
   loginUser,
   loginUserError,
@@ -102,6 +103,13 @@ export const accountReducer = createReducer(
     user: action.user,
     status: 'success',
     error: '',
+    apiErrorResponse: null,
+  })),
+  on(loadUserError, (state, action) => ({
+    ...state,
+    user: null,
+    status: 'Load user failed',
+    error: action.error.errors,
     apiErrorResponse: null,
   }))
 );

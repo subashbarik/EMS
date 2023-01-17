@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { AccountService } from 'src/app/account/account.service';
 import { IServerAppConfiguration } from 'src/app/shared/models/serverappconfiguration';
 import { IUser } from 'src/app/shared/models/user';
 import {

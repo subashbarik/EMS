@@ -6,6 +6,7 @@ import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { AccountService } from 'src/app/account/account.service';
 import {
   loadUser,
+  loadUserError,
   loadUserSuccess,
   loginUser,
   loginUserError,
@@ -114,7 +115,8 @@ export class AccountEffects {
       ofType(loadUser),
       switchMap((request) =>
         from(this.accService.loadCurrentUser(request.token)).pipe(
-          map((response: any) => loadUserSuccess({ user: response }))
+          map((response: any) => loadUserSuccess({ user: response })),
+          catchError((error) => of(loadUserError({ error: error })))
         )
       )
     )

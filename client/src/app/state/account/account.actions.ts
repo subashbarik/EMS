@@ -38,3 +38,7 @@ export const loadUserSuccess = createAction(
   '[account] load user success',
   props<{ user: IUser }>()
 );
+export const loadUserError = createAction(
+  '[account] load user error',
+  props<{ error: any }>()
+);
