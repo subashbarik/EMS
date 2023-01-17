@@ -11,6 +11,6 @@ export class EmployeeParams implements IEmployeeParams {
   designationId = 0;
   sort = 'firstName';
   pageIndex = 1;
-  pageSize = 6;
+  pageSize = 9;
   search: string;
 }

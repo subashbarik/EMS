@@ -12,14 +12,13 @@
       </header>
 
       <main>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-2">
-              <app-side-menu></app-side-menu>
-            </div>
-            <div class="col-10">
-              <router-outlet></router-outlet>
-            </div>
+        <div class="ems-main-body-grid">
+          <div>
+            <app-side-menu></app-side-menu>
+          </div>
+
+          <div>
+            <router-outlet></router-outlet>
           </div>
         </div>
       </main>

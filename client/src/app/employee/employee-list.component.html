@@ -10,20 +10,19 @@
   <div class="mt-2 ems-content">
     <ng-container *ngIf="vm$ | async as vm">
       <div
-        class="row ems-employee-list-card-content"
+        class="ems-employee-list-grid ems-grid-3-cols"
         *ngIf="
           vm.loadingStatus !== 'loading' && vm.loadingStatus !== 'deleting';
           else loading
         "
       >
         <ng-container *ngIf="vm.employees">
-          <div
-            class="col-4"
+          <ng-container
             *ngFor="let item of vm.employees"
             style="padding-left: 15px"
           >
             <app-employee-card [employee]="item"></app-employee-card>
-          </div>
+          </ng-container>
         </ng-container>
       </div>
       <div class="d-flex justify-content-center" *ngIf="vm.count > 0">
