@@ -121,4 +121,31 @@ export class AccountEffects {
       )
     )
   );
+  redirectAfterLoadSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadUserSuccess),
+        tap((response) => {
+          if (response.user) {
+            //this.accService.setJwtTokenInLocalStorage(response.user.token);
+            this.router.navigate(['/main/home']);
+          } else {
+            this.router.navigate(['/account/login']);
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+  redirectAfterLoadFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadUserError),
+        tap((response) => {
+          //Error can happen becasue of token expiration, so remove it.
+          this.accService.removeJwtTokenInLocalStorage('token');
+          this.router.navigate(['/account/login']);
+        })
+      ),
+    { dispatch: false }
+  );
 }
