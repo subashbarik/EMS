@@ -3,6 +3,7 @@ export interface IUser {
   displayName: string;
   token: string;
   roles: string[];
+  isAdmin: boolean;
   apiErrorResponse: any;
 }
 export interface ILogin {
