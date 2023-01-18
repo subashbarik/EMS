@@ -42,6 +42,9 @@ export class AccountService {
   setJwtTokenInLocalStorage(token: string) {
     localStorage.setItem('token', token);
   }
+  removeJwtTokenInLocalStorage(token: string): void {
+    localStorage.removeItem(token);
+  }
   getJwtToken(): string {
     let token = localStorage.getItem('token');
     if (token === null) {
