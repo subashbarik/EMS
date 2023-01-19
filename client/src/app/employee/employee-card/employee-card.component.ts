@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/app/core/dialog.service';
@@ -13,7 +14,11 @@ import { deleteEmployee } from 'src/app/state/employee/employee.actions';
 export class EmployeeCardComponent implements OnInit, OnDestroy {
   @Input() employee: IEmployee;
   public confirmSubscription = new Subscription();
-  constructor(private store: Store, private dialogService: DialogService) {}
+  constructor(
+    private store: Store,
+    private dialogService: DialogService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
   ngOnDestroy(): void {
@@ -28,5 +33,8 @@ export class EmployeeCardComponent implements OnInit, OnDestroy {
         }
       },
     });
+  }
+  view(id): void {
+    this.router.navigate(['/main/employees/details/' + id]);
   }
 }
