@@ -11,6 +11,7 @@ namespace Application.Models.Page
     {
         public List<DepartmentDto> Departments { get; set; }
         public List<DesignationDto> Designations { get; set; }
+        public List<EmployeeTypeDto> EmployeeTypes { get; set; }
         public string DefaultImageUrl { get; set; }
     }
 }

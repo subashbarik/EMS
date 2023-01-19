@@ -52,7 +52,9 @@ export class EmployeeEffects {
         from(this.empService.addUpdateEmployee(request.employee)).pipe(
           // delay(1000),
           // Take the returned value and return a new success action containing the employees
-          map((response: any) => addEmployeeSuccess({ employee: response }))
+          map((response: IEmployee) =>
+            addEmployeeSuccess({ employee: response })
+          )
         )
       )
     )
@@ -66,7 +68,9 @@ export class EmployeeEffects {
         // Call employee service as a side effect and return updated employee
         from(this.empService.addUpdateEmployee(request.employee)).pipe(
           // Take the returned value and return a new success action containing the updated employee
-          map((response: any) => updateEmployeeSuccess({ employee: response }))
+          map((response: IEmployee) =>
+            updateEmployeeSuccess({ employee: response })
+          )
         )
       )
     )

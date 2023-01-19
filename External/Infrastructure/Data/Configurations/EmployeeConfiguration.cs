@@ -27,6 +27,7 @@ namespace Infrastructure.Data.Configurations
             builder.Property(p => p.State).HasMaxLength(100);
             builder.Property(p => p.ZipCode).HasMaxLength(20);
             builder.Property(p => p.Country).HasMaxLength(100);
+            builder.Property(p => p.ContactNo).HasMaxLength(15);
             builder.Property(p => p.Description).HasMaxLength(500);
             builder.Property(p => p.EmployeeTypeId).IsRequired();
             builder.Property(p => p.DepartmentId).IsRequired();

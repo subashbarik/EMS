@@ -1,0 +1,15 @@
+.ems-employee-card {
+  min-height: 14rem;
+  background: linear-gradient(
+    to right bottom,
+    rgba(110, 146, 231, 0.35),
+    rgba(230, 125, 34, 0.35)
+  );
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.075);
+  transition: all 0.4s;
+}
+
+.ems-employee-card:hover {
+  background-color: #fff;
+  transform: translateY(-0.3rem);
+}

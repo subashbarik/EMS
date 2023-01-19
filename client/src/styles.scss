@@ -9,11 +9,11 @@ body {
 }
 .ems-app-container {
   width: 99vw;
-  background-color: rgb(217, 230, 230);
+  background-color: $emsPrimaryBodyBackGroundColor;
 }
 // Header start
 .ems-header-body {
-  background-color: rgb(217, 230, 230);
+  background-color: $emsPrimaryBodyBackGroundColor;
   //width: 97vw;
 }
 // Header ends
@@ -24,7 +24,7 @@ body {
   border: 1px solid $emsPrimaryThemeColor;
   height: 90vh;
   //min-width: 8vh;
-  background-color: rgb(217, 230, 230);
+  background-color: $emsPrimaryBodyBackGroundColor;
   margin: 0px 10px;
 }
 

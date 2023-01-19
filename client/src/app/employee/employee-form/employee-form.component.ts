@@ -131,6 +131,7 @@ export class EmployeeFormComponent
     } else if (this.mode === 'UPDATE') {
       this.empSubscription = this.employee$.subscribe((employee: IEmployee) => {
         this.employee = employee;
+        console.log(employee);
         this.setEmployeeForm(employee);
       });
     }
@@ -157,17 +158,19 @@ export class EmployeeFormComponent
       dob: [employee ? employee.dob : null, [Validators.required]],
 
       hireDate: [employee ? employee.hireDate : null, [Validators.required]],
-      sex: [employee ? employee.sex : null, [Validators.required]],
-      address1: [employee ? employee.address1 : null, [Validators.required]],
-      address2: [employee ? employee.address2 : null, [Validators.required]],
-      city: [employee ? employee.city : null, [Validators.required]],
-      state: [employee ? employee.state : null, [Validators.required]],
-      zipCode: [employee ? employee.zipCode : null, [Validators.required]],
-      country: [employee ? employee.country : null, [Validators.required]],
-      basic: [
-        employee ? employee.basic : null,
-        [Validators.required, Validators.maxLength(6), SalaryValidator],
-      ],
+      sex: [employee ? employee.sex : null],
+      address1: [employee ? employee.address1 : null],
+      address2: [employee ? employee.address2 : null],
+      city: [employee ? employee.city : null],
+      state: [employee ? employee.state : null],
+      zipCode: [employee ? employee.zipCode : null],
+      country: [employee ? employee.country : null],
+      contactNo: [employee ? employee.contactNo : null],
+      // basic: [
+      //   employee ? employee.basic : null,
+      //   [Validators.required, Validators.maxLength(6), SalaryValidator],
+      // ],
+      basic: [employee ? employee.basic : null],
       taPercentage: [employee ? employee.taPercentage : null, []],
       daPercentage: [employee ? employee.daPercentage : null, []],
       hraPercentage: [employee ? employee.hraPercentage : null, []],
@@ -212,6 +215,7 @@ export class EmployeeFormComponent
       employeeData.state,
       employeeData.zipCode,
       employeeData.country,
+      employeeData.contactNo,
       employeeData.basic,
       employeeData.taPercentage,
       employeeData.daPercentage,

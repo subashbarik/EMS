@@ -19,15 +19,15 @@ namespace Application.Dtos
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; }
-
+        public string ContactNo { get; set; }
         public double Basic { get; set; }
         public double TAPercentage { get; set; }
         public double DAPercentage { get; set; }
         public double HRAPercentage { get; set; }
         public double Salary { get; set; }
         public string ImageUrl { get; set; }
-        public string Description { get; set; }
         public IFormFile ImageFile { get; set; }
+        public string Description { get; set; }
         public int DepartmentId { get; set; }
         public int DesignationId { get; set; }
         public int EmployeeTypeId { get; set; }

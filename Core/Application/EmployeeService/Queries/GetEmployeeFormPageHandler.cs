@@ -4,13 +4,7 @@ using Application.Options;
 using Domain.Interfaces;
 using Domain.Specifications;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.EmployeeService.Queries
 {
@@ -51,6 +45,12 @@ namespace Application.EmployeeService.Queries
                                                     SortType = desigSpecParams.Sort
                                                 });
             output.Designations = designations;
+            var employeeTypes = await _dapper.LoadData<EmployeeTypeDto, dynamic>("usp_GetAllEmployeeTypes",
+                                                new
+                                                {
+                                                    
+                                                });                                    
+            output.EmployeeTypes = employeeTypes;
             output.DefaultImageUrl = appCnfOptions.ApiUrl + appCnfOptions.NoImageEmployeePath;
             return output;
         }

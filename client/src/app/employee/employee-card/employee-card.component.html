@@ -1,4 +1,4 @@
-<div class="card" style="max-width: 500px">
+<div class="card ems-employee-card" style="max-width: 500px">
   <div class="row g-0">
     <div class="col-md-2">
       <img
@@ -13,7 +13,10 @@
           {{ employee.firstName }}
         </h5>
         <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in.
+          {{
+            (employee.description ? employee.description : "")
+              | stringmaxlength : 80
+          }}
         </p>
         <p class="card-text">
           <small class="text-muted">{{ employee.departmentName }}</small>

@@ -55,8 +55,8 @@
                   <div class="row">
                     <div class="col">
                       <app-text-input
-                        formControlName="hireDate"
-                        [label]="'Hire Date'"
+                        formControlName="contactNo"
+                        [label]="'Contact Number'"
                       ></app-text-input>
                     </div>
                     <div class="col">
@@ -72,11 +72,23 @@
                             : null
                         "
                       >
-                        <option [ngValue]="null">Select Sex</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Unknown</option>
+                        <option value="null">Select Sex</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="U">Unknown</option>
                       </select>
+                      <div
+                        class="invalid-feedback"
+                        *ngIf="
+                          !this.employeeForm.get('sex').valid &&
+                          this.employeeForm.get('sex').touched
+                        "
+                      >
+                        <span
+                          *ngIf="this.employeeForm.get('sex').errors?.required"
+                          >Sex is required</span
+                        >
+                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -149,9 +161,61 @@
                 </div>
               </div>
             </tab>
-            <tab heading="Salary Info">
+            <tab heading="Employment Details">
               <div class="mt-0" style="background-color: antiquewhite">
                 <div class="p-2">
+                  <div class="row">
+                    <div class="col">
+                      <ng-container *ngIf="data.empFormPageData.departments">
+                        <select
+                          class="form-control"
+                          id="employeeTypeId"
+                          formControlName="employeeTypeId"
+                          [ngClass]="
+                            this.employeeForm.get('employeeTypeId').touched
+                              ? !this.employeeForm.get('employeeTypeId').valid
+                                ? 'is-invalid'
+                                : 'is-valid'
+                              : null
+                          "
+                        >
+                          <option [ngValue]="null">Select Type</option>
+                          <option
+                            *ngFor="
+                              let employeeType of data.empFormPageData
+                                .employeeTypes
+                            "
+                            [ngValue]="employeeType.id"
+                          >
+                            {{ employeeType.name }}
+                          </option>
+                        </select>
+                        <div
+                          class="invalid-feedback"
+                          *ngIf="
+                            !this.employeeForm.get('employeeTypeId').valid &&
+                            this.employeeForm.get('employeeTypeId').touched
+                          "
+                        >
+                          <span
+                            *ngIf="
+                              this.employeeForm.get('employeeTypeId').errors
+                                ?.required
+                            "
+                            >Type is required</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                    <div class="col">
+                      <div class="col">
+                        <app-text-input
+                          formControlName="hireDate"
+                          [label]="'Hire Date'"
+                        ></app-text-input>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col">
                       <app-text-input
@@ -217,21 +281,16 @@
                               this.employeeForm.get('departmentId').errors
                                 ?.required
                             "
-                            >Designation is required</span
+                            >Department is required</span
                           >
                         </div>
-                        <!-- <app-select-input
-                        formControlName="departmentId"
-                        [dataList]="vm.departments"
-                        [firstOptionText]="'Select a department'"
-                        [label]="'Department'"
-                      ></app-select-input> -->
                       </ng-container>
                     </div>
                     <div class="col">
                       <ng-container *ngIf="data.empFormPageData.designations">
                         <select
                           class="form-control"
+                          id="designationId"
                           formControlName="designationId"
                           [ngClass]="
                             this.employeeForm.get('designationId').touched

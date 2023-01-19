@@ -17,7 +17,7 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; }
-
+        public string ContactNo { get; set; }
         public double Basic { get; set; }
         public double TAPercentage { get; set; }
         public double DAPercentage { get; set; }

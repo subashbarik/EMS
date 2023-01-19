@@ -2,6 +2,7 @@ import { zip } from 'rxjs';
 import { command } from './command';
 import { IDepartment } from './department';
 import { IDesignation } from './designation';
+import { IEmployeeType } from './employeetype';
 
 export interface IEmployeeFormData {
   employee: IEmployee;
@@ -13,6 +14,7 @@ export class EmployeeFormData implements IEmployeeFormData {
 export interface IEmployeeFormPageModel {
   departments: IDepartment[];
   designations: IDesignation[];
+  employeeTypes: IEmployeeType[];
   defaultImageUrl: string;
 }
 // export class EmployeeFormPageModel implements IEmployeeFormPageModel {
@@ -43,6 +45,7 @@ export interface IEmployee {
   city: string;
   state: string;
   zipCode: string;
+  contactNo: string;
   country: string;
   basic: number;
   taPercentage: number;
@@ -73,6 +76,7 @@ export class Employee implements IEmployee {
   address2: string;
   city: string;
   state: string;
+  contactNo: string;
   zipCode: string;
   country: string;
   basic: number;
@@ -105,6 +109,7 @@ export class Employee implements IEmployee {
     state: string,
     zipCode: string,
     country: string,
+    contactNo: string,
     basic: number,
     taPrcentage: number,
     daPercentage: number,
@@ -135,6 +140,7 @@ export class Employee implements IEmployee {
     this.state = state;
     this.zipCode = zipCode;
     this.country = country;
+    this.contactNo = contactNo;
     this.basic = basic;
     this.taPercentage = taPrcentage;
     this.daPercentage = daPercentage;
