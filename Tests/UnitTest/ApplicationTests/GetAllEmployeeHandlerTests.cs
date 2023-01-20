@@ -14,7 +14,7 @@ namespace ApplicationTests
     {
 
         [Fact]
-        public async void GetEmployeeByIdHandler_Handle_With_Id_PresentInDB()
+        public async void GetAllEmployeeHandler_Handle_FetchAll_Employee()
         {
             using (var mock = AutoMock.GetLoose())
             {
