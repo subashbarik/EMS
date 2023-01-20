@@ -5,13 +5,8 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Specifications;
-using Domain.Types;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ApplicationTests
 {
@@ -30,19 +25,19 @@ namespace ApplicationTests
 
                 var employee = GetEmployee();
 
-                IReadOnlyList<Application.Dtos.EmployeeDto> employeesDtos;
+                List<EmployeeDto> employeesDtos = new List<EmployeeDto>(); ;
                 employeesDtos = GetEmployeesDto();
 
                 mock.Mock<IGenericDapperRepository>()
                     .Setup(x => x.CountData("usp_GetEmployeeCount"))
                     .ReturnsAsync(employeeCount);
-
+               
                 mock.Mock<IGenericDapperRepository>()
-                    .Setup(x => x.LoadData<Employee, object>("usp_GetAllEmployees", It.IsAny<object>()))
-                    .ReturnsAsync(employees);
+                    .Setup(x => x.LoadData<EmployeeDto, object>("usp_GetAllEmployees", It.IsAny<object>()))
+                    .ReturnsAsync(employeesDtos);
 
                 mock.Mock<IMapper>()
-                    .Setup(x => x.Map<IReadOnlyList<Employee>, IReadOnlyList<EmployeeDto>>(employees))
+                    .Setup(x => x.Map<IReadOnlyList<EmployeeDto>, IReadOnlyList<EmployeeDto>>(employeesDtos))
                     .Returns(employeesDtos);
 
                 mock.Mock<ILogger<GetAllEmployeeHandler>>();
@@ -79,7 +74,7 @@ namespace ApplicationTests
             }
 
         }
-        public Domain.Entities.Employee GetEmployee()
+        public Employee GetEmployee()
         {
             return new Employee { Id = 1, FirstName = "Subash", LastName = "Barik", Age = 43, DepartmentId = 1, DesignationId = 1 };
         }
@@ -95,18 +90,18 @@ namespace ApplicationTests
         }
 
 
-        public IReadOnlyList<Application.Dtos.EmployeeDto> GetEmployeesDto()
+        public List<EmployeeDto> GetEmployeesDto()
         {
-            List<Application.Dtos.EmployeeDto> employees = new()
+            List<EmployeeDto> employees = new()
             {
-                new Application.Dtos.EmployeeDto { Id=1, FirstName="Subash", LastName="Barik", Age=43, DepartmentId=1, DesignationId=1},
-                new Application.Dtos.EmployeeDto { Id=2, FirstName="Nirupama", LastName="Pradhan", Age=37, DepartmentId=2, DesignationId=2},
-                new Application.Dtos.EmployeeDto { Id=3, FirstName="Sunayana", LastName="Barik", Age=12, DepartmentId=3, DesignationId=3}
+                new EmployeeDto { Id=1, FirstName="Subash", LastName="Barik", Age=43, DepartmentId=1, DesignationId=1},
+                new EmployeeDto { Id=2, FirstName="Nirupama", LastName="Pradhan", Age=37, DepartmentId=2, DesignationId=2},
+                new EmployeeDto { Id=3, FirstName="Sunayana", LastName="Barik", Age=12, DepartmentId=3, DesignationId=3}
             };
             
             return employees;
         }
-        public Pagination<Application.Dtos.EmployeeDto> GetPagedData()
+        public Pagination<EmployeeDto> GetPagedData()
         {
             return new Pagination<Application.Dtos.EmployeeDto>(1, 10, 100, GetEmployeesDto());
         }
