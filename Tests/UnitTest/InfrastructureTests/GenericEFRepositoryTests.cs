@@ -1,13 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Specifications;
 using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace InfrastructureTests
 {

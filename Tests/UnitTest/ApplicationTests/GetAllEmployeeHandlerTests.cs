@@ -1,32 +1,31 @@
 ﻿using Application.Dtos;
 using Application.EmployeeService.Queries;
-using Application.Types;
 using AutoMapper;
-using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Specifications;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
-
+using TestDataProvider.EmployeeTestDataProviderService;
+using TestDataProvider.Interfaces;
 
 namespace ApplicationTests
 {
     public class GetAllEmployeeHandlerTests
     {
-
+        private readonly IEmployeeTestService _employeeTestService;
+        public GetAllEmployeeHandlerTests()
+        {
+            _employeeTestService = new EmployeeTestService();
+        }
         [Fact]
         public async void GetAllEmployeeHandler_Handle_FetchAll_Employee()
         {
-            using (var mock = AutoMock.GetLoose())
+            using (var mock = AutoMock.GetStrict())
             {
                 //Arrange
                 int employeeCount = 100;
-                List<Employee> employees = new List<Employee>();
-                employees = GetEmployees();
+                var employeesDtos = _employeeTestService.GetEmployeesDto();
 
-                var employee = GetEmployee();
-
-                List<EmployeeDto> employeesDtos = new List<EmployeeDto>(); ;
-                employeesDtos = GetEmployeesDto();
 
                 mock.Mock<IGenericDapperRepository>()
                     .Setup(x => x.CountData("usp_GetEmployeeCount"))
@@ -41,10 +40,12 @@ namespace ApplicationTests
                     .Returns(employeesDtos);
 
                 mock.Mock<ILogger<GetAllEmployeeHandler>>();
-                    
-                    
+
+
 
                 // Act
+                //myMoq.Verify(x => x.CountData("usp_GetEmployeeCount"), Times.Exactly(1));
+               
                 var cls = mock.Create<GetAllEmployeeHandler>();
                 EmployeeSpecParams employeeParams = new EmployeeSpecParams();
                 employeeParams.PageIndex = 1;
@@ -53,7 +54,7 @@ namespace ApplicationTests
                 var queryClass = new GetAllEmployeeQuery(employeeParams);
                 var cancelToken = new CancellationToken();
 
-                var expected = GetPagedData();
+                var expected = _employeeTestService.GetPagedData();
                 var actual = await cls.Handle(queryClass, cancelToken);
 
                 // Assert
@@ -63,48 +64,48 @@ namespace ApplicationTests
                 Assert.Equal(expected.Count, actual.Count);
 
                 Assert.Equal(expected.Data.Count, actual.Data.Count);
-                //Assert.Equal(expected.Id, actual.Id);
-                //Assert.Equal(expected.FirstName, actual.FirstName);
-                //Assert.Equal(expected.LastName, actual.LastName);
-                //Assert.Equal(expected.Age, actual.Age);
-                //Assert.Equal(expected.Salary, actual.Salary);
-                //Assert.Equal(expected.DepartmentId, actual.DepartmentId);
-                //Assert.Equal(expected.DesignationId, actual.DesignationId);
+
+                // Fluent Assert
+                actual.Should().NotBeNull();
+                //actual.Should().Be(expected);
+                actual.Count.Should().Be(expected.Count);
+                actual.Count.Should().Be(100);
 
             }
 
         }
-        public Employee GetEmployee()
+        [Fact]
+        // Verifies that CountData method of IGenericDapperRepository is called once
+        public void GetAllEmployeeHandler_Handle_CountData_Should_Call_Once()
         {
-            return new Employee { Id = 1, FirstName = "Subash", LastName = "Barik", Age = 43, DepartmentId = 1, DesignationId = 1 };
-        }
-        public List<Employee> GetEmployees()
-        {
-            List<Employee> employees = new()
-            {
-                new Employee { Id=1, FirstName="Subash", LastName="Barik", Age=43, DepartmentId=1, DesignationId=1},
-                new Employee { Id=2, FirstName="Nirupama", LastName="Pradhan", Age=37, DepartmentId=2, DesignationId=2},
-                new Employee { Id=3, FirstName="Sunayana", LastName="Barik", Age=12, DepartmentId=3, DesignationId=3}
-            };
-            return employees;
-        }
+            //Arrange
+            var unitOfWorkMoq = new Mock<IUnitOfWork>();
+            var dapperMoq = new Mock<IGenericDapperRepository>();
+            var mapperMoq = new Mock<IMapper>();
 
-
-        public List<EmployeeDto> GetEmployeesDto()
-        {
-            List<EmployeeDto> employees = new()
-            {
-                new EmployeeDto { Id=1, FirstName="Subash", LastName="Barik", Age=43, DepartmentId=1, DesignationId=1},
-                new EmployeeDto { Id=2, FirstName="Nirupama", LastName="Pradhan", Age=37, DepartmentId=2, DesignationId=2},
-                new EmployeeDto { Id=3, FirstName="Sunayana", LastName="Barik", Age=12, DepartmentId=3, DesignationId=3}
-            };
             
-            return employees;
+            EmployeeSpecParams employeeParams = new EmployeeSpecParams();
+            employeeParams.PageIndex = 1;
+            employeeParams.PageSize = 10;
+
+            var queryClass = new GetAllEmployeeQuery(employeeParams);
+            var cancelToken = new CancellationToken();
+
+
+            var handler =  new GetAllEmployeeHandler(unitOfWorkMoq.Object,mapperMoq.Object,dapperMoq.Object,null);
+            //Act
+            var output = handler.Handle(queryClass, cancelToken);
+            //Assert
+            dapperMoq.Verify(x => x.CountData(It.IsAny<string>()),Times.Exactly(1));
         }
-        public Pagination<EmployeeDto> GetPagedData()
+        [Fact]
+        public void TestMethod1()
         {
-            return new Pagination<Application.Dtos.EmployeeDto>(1, 10, 100, GetEmployeesDto());
+            IEnumerable<int> collection = new[] { 1, 2, 3 };
+            //Assert.ThrowsAny<Exception>
+
         }
+
     }
     
 }
