@@ -31,11 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataProvider", "Tests\U
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APITest", "APITest", "{42727860-D9ED-4B9D-8FFB-5F612FB4F792}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationTest", "Tests\APITest\PresentationTest\PresentationTest.csproj", "{637B41D4-F4E8-497B-A63F-9DE2D37FF57A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationTests", "Tests\APITest\PresentationTest\PresentationTests.csproj", "{637B41D4-F4E8-497B-A63F-9DE2D37FF57A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{EA832FEB-C7BB-4C5D-A8EA-075782751B09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGeneratorTests", "Tests\Common\ReportGeneratorTests\ReportGeneratorTests.csproj", "{8D2305E0-AA10-47B4-92E1-7662A654C989}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportGeneratorTests", "Tests\Common\ReportGeneratorTests\ReportGeneratorTests.csproj", "{8D2305E0-AA10-47B4-92E1-7662A654C989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
