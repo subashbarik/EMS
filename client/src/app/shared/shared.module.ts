@@ -7,6 +7,7 @@ import { TableComponent } from './components/table/table.component';
 import { SelectInputComponent } from './components/select-input/select-input.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { StringmaxlengthPipe } from './pipes/stringmaxlength.pipe';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StringmaxlengthPipe } from './pipes/stringmaxlength.pipe';
     SelectInputComponent,
     PagerComponent,
     StringmaxlengthPipe,
+    LoadingComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, PaginationModule.forRoot()],
   exports: [
@@ -24,6 +26,7 @@ import { StringmaxlengthPipe } from './pipes/stringmaxlength.pipe';
     TableComponent,
     SelectInputComponent,
     PagerComponent,
+    LoadingComponent,
     StringmaxlengthPipe,
   ],
 })

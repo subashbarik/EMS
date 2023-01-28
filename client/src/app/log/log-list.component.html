@@ -6,39 +6,38 @@
 <div class="row ems-body">
   <div class="mt-2 ems-content">
     <ng-container *ngIf="vm$ | async as vm">
-      <div
-        *ngIf="vm.loadingStatus !== 'loading'; else loading"
-        class="ems-log-list-data-content"
-      >
-        <ng-container *ngIf="vm.logs">
-          <app-table [data]="vm.logs">
-            <ng-template #headers>
-              <td>Id</td>
-              <td>Time Stamp</td>
-              <td>Level</td>
-              <td>Message</td>
-              <td></td>
-            </ng-template>
-            <ng-template #rows let-row>
-              <td>{{ row.id }}</td>
-              <td>
-                {{ row.timeStamp | date : serverAppConfig.uiDateTimeFormat }}
-              </td>
-              <td>{{ row.level }}</td>
-              <td>{{ row.message | stringmaxlength : 80 }}</td>
-              <td>
-                <a routerLink="/main/logs/details/{{ row.id }}">
-                  <i
-                    class="fa fa-thin fa-eye ems-edit-table-icon"
-                    aria-hidden="true"
-                  ></i>
-                </a>
-              </td>
-            </ng-template>
-          </app-table>
+      <ng-container *ngIf="vm.logs">
+        <app-table [data]="vm.logs">
+          <ng-template #headers>
+            <td>Id</td>
+            <td>Time Stamp</td>
+            <td>Level</td>
+            <td>Message</td>
+            <td></td>
+          </ng-template>
+          <ng-template #rows let-row>
+            <td>{{ row.id }}</td>
+            <td>
+              {{ row.timeStamp | date : serverAppConfig.uiDateTimeFormat }}
+            </td>
+            <td>{{ row.level }}</td>
+            <td>{{ row.message | stringmaxlength : 80 }}</td>
+            <td>
+              <a routerLink="/main/logs/details/{{ row.id }}">
+                <i
+                  class="fa fa-thin fa-eye ems-edit-table-icon"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </td>
+          </ng-template>
+        </app-table>
+        <ng-container *ngIf="vm.loadingStatus === 'loading'">
+          <app-loading></app-loading>
         </ng-container>
-      </div>
-      <div class="d-flex justify-content-center" *ngIf="vm.count > 0">
+      </ng-container>
+
+      <div class="d-flex justify-content-center mt-2" *ngIf="vm.count > 0">
         <app-pager
           [pageSize]="vm.logParams.pageSize"
           [totalCount]="vm.count"
@@ -47,11 +46,6 @@
         >
         </app-pager>
       </div>
-      <ng-template #loading>
-        <div class="ems-loading">
-          <h3>Loading please wait..</h3>
-        </div>
-      </ng-template>
     </ng-container>
   </div>
 </div>

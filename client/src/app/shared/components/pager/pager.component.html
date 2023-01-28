@@ -1,6 +1,7 @@
 <pagination
   [boundaryLinks]="true"
   [totalItems]="totalCount"
+  [maxSize]="maxSize"
   (pageChanged)="onPagerChange($event)"
   [itemsPerPage]="pageSize"
   previousText="&lsaquo;"

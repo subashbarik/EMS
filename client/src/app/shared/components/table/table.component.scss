@@ -1,6 +1,8 @@
 @import "../../../../variable.scss";
 .ems-table {
   width: 100%;
+  border: 1px solid $emsPrimaryThemeColor;
+  box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 .ems-table-header {
   background-color: $emsPrimaryThemeColor;

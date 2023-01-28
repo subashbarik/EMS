@@ -27,7 +27,7 @@ body {
   background-color: $emsPrimaryBodyBackGroundColor;
   margin: 0px 10px;
   border-radius: 0.4rem;
-  box-shadow: 0.1rem 0.1rem $emsShadowColor;
+  box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 
 .ems-side-menu-header {
@@ -70,7 +70,7 @@ body {
   //width: 83vw;
   border-top-left-radius: 0.4rem;
   border-top-right-radius: 0.4rem;
-  box-shadow: 0.1rem 0.1rem $emsShadowColor;
+  box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 .ems-body {
   border: 1px solid $emsPrimaryThemeColor;
@@ -80,7 +80,7 @@ body {
   overflow: auto;
   border-bottom-left-radius: 0.4rem;
   border-bottom-right-radius: 0.4rem;
-  box-shadow: 0.1rem 0.1rem $emsShadowColor;
+  box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 //body end
 
@@ -99,6 +99,25 @@ body {
 .ems-loading {
   //width: 83vw;
   //height: 87vh;
+}
+.ems-loading-div-style {
+  display: inline;
+  font-weight: 500;
+  height: 3rem;
+  width: 15rem;
+  align-items: center;
+  z-index: 100;
+  background-color: $emsPrimaryThemeColor;
+  color: $emsPageHeaderColor;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem $emsShadowColor;
+  padding-top: 0.5rem;
+  padding-left: 2rem;
+}
+.ems-hide-loading-div {
+  display: none;
 }
 .ems-profile-icon {
   color: $emsPrimaryThemeColor;

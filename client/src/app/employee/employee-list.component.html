@@ -9,13 +9,7 @@
 <div class="row ems-body">
   <div class="mt-2 ems-content">
     <ng-container *ngIf="vm$ | async as vm">
-      <div
-        class="ems-employee-list-grid ems-grid-3-cols"
-        *ngIf="
-          vm.loadingStatus !== 'loading' && vm.loadingStatus !== 'deleting';
-          else loading
-        "
-      >
+      <div class="ems-employee-list-grid ems-grid-3-cols">
         <ng-container *ngIf="vm.employees">
           <ng-container
             *ngFor="let item of vm.employees"
@@ -25,6 +19,13 @@
           </ng-container>
         </ng-container>
       </div>
+      <ng-container
+        *ngIf="
+          vm.loadingStatus === 'loading' || vm.loadingStatus === 'deleting'
+        "
+      >
+        <app-loading></app-loading>
+      </ng-container>
       <div class="d-flex justify-content-center" *ngIf="vm.count > 0">
         <app-pager
           [pageSize]="vm.empParams.pageSize"
@@ -34,11 +35,6 @@
         >
         </app-pager>
       </div>
-      <ng-template #loading>
-        <div class="ems-loading">
-          <h3>{{ vm.loadingStatus | titlecase }} please wait..</h3>
-        </div>
-      </ng-template>
     </ng-container>
   </div>
 </div>
