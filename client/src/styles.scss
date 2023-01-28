@@ -26,10 +26,16 @@ body {
   //min-width: 8vh;
   background-color: $emsPrimaryBodyBackGroundColor;
   margin: 0px 10px;
+  border-radius: 0.4rem;
+  box-shadow: 0.1rem 0.1rem $emsShadowColor;
 }
 
 .ems-side-menu-header {
   background-color: $emsPrimaryThemeColor;
+}
+.ems-side-menu-header:first-child {
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
 }
 .ems-side-menu-header-caption {
   color: #fff;
@@ -62,6 +68,9 @@ body {
   font-size: 1rem;
   height: 3vh;
   //width: 83vw;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+  box-shadow: 0.1rem 0.1rem $emsShadowColor;
 }
 .ems-body {
   border: 1px solid $emsPrimaryThemeColor;
@@ -69,6 +78,9 @@ body {
   height: 87vh;
   background-color: $emsPrimaryBodyBackGroundColor;
   overflow: auto;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+  box-shadow: 0.1rem 0.1rem $emsShadowColor;
 }
 //body end
 
@@ -85,8 +97,8 @@ body {
   // min-height: 70vh;
 }
 .ems-loading {
-  width: 83vw;
-  min-height: 90vh;
+  //width: 83vw;
+  //height: 87vh;
 }
 .ems-profile-icon {
   color: $emsPrimaryThemeColor;
