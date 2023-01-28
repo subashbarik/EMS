@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { ComponentCanDeactivate } from 'src/app/shared/models/candeactivate';
-import { DialogService } from '../dialog.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { UnsaveddataDialogComponent } from '../components/dialogs/unsaveddata-dialog/unsaveddata-dialog.component';
@@ -19,10 +18,7 @@ export class CandeactivateGuard
   implements CanDeactivate<ComponentCanDeactivate>
 {
   modalRef: BsModalRef;
-  constructor(
-    private dialogService: DialogService,
-    private modalService: BsModalService
-  ) {}
+  constructor(private modalService: BsModalService) {}
   canDeactivate(
     component: ComponentCanDeactivate,
     currentRoute: ActivatedRouteSnapshot,

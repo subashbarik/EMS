@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Dtos;
-using Domain.Interfaces;
-using Domain.Entities;
-using MediatR;
-using AutoMapper;
+﻿using Application.Dtos;
 using Application.Interfaces;
-using Microsoft.Extensions.Configuration;
+using Application.Options;
+using AutoMapper;
+using Domain.Entities;
+using Domain.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using Application.Options;
 
 namespace Application.EmployeeService.Commands
 {

@@ -63,7 +63,6 @@ export class LogListComponent implements OnInit, OnDestroy {
     this.tableDoubleClickSubscription =
       this.tableService.rowDblClicked$.subscribe({
         next: (response: number) => {
-          console.log(response);
           this.router.navigate(['/main/logs/details/' + response]);
         },
       });

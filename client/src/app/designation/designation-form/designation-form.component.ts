@@ -63,7 +63,6 @@ export class DesignationFormComponent
       this.pageTitle = 'Update Designation';
     }
     this.createDesignationForm();
-    console.log(this.designationForm);
   }
   ngOnDestroy(): void {
     this.desigSubscription.unsubscribe();
