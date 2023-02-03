@@ -26,7 +26,7 @@ body {
   //min-width: 8vh;
   background-color: $emsPrimaryBodyBackGroundColor;
   margin: 0px 10px;
-  border-radius: 0.4rem;
+  border-radius: $emsBorderRadius;
   box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 
@@ -34,8 +34,8 @@ body {
   background-color: $emsPrimaryThemeColor;
 }
 .ems-side-menu-header:first-child {
-  border-top-left-radius: 0.4rem;
-  border-top-right-radius: 0.4rem;
+  border-top-left-radius: $emsBorderRadius;
+  border-top-right-radius: $emsBorderRadius;
 }
 .ems-side-menu-header-caption {
   color: #fff;
@@ -68,8 +68,8 @@ body {
   font-size: 1rem;
   height: 3vh;
   //width: 83vw;
-  border-top-left-radius: 0.4rem;
-  border-top-right-radius: 0.4rem;
+  border-top-left-radius: $emsBorderRadius;
+  border-top-right-radius: $emsBorderRadius;
   box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 .ems-body {
@@ -78,8 +78,8 @@ body {
   height: 87vh;
   background-color: $emsPrimaryBodyBackGroundColor;
   overflow: auto;
-  border-bottom-left-radius: 0.4rem;
-  border-bottom-right-radius: 0.4rem;
+  border-bottom-left-radius: $emsBorderRadius;
+  border-bottom-right-radius: $emsBorderRadius;
   box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
 }
 //body end
@@ -164,21 +164,71 @@ body {
   margin-bottom: 1rem;
   grid-template-columns: repeat(3, 1fr);
 }
+.ems-employee-card {
+  min-height: 14rem;
+  background: linear-gradient(
+    to right bottom,
+    rgba(110, 146, 231, 0.35),
+    rgba(230, 125, 34, 0.35)
+  );
+  box-shadow: 0 0.6rem 0.6rem rgba(0, 0, 0, 0.075);
+  transition: all 0.4s;
+  max-width: 32rem;
+}
 
 // media queries
+
+/* Small Computer screens */
+@media (max-width: 84em) {
+  .ems-header-body {
+    width: 99%;
+  }
+  .ems-header {
+    width: 100%;
+  }
+  .ems-body {
+    //width: 98%;
+    //padding-right: 2px;
+  }
+}
+
+/* Landscape Tablets */
+/* 1200px max width 1200/16 = 75em */
 @media (max-width: 75em) {
+  html {
+    /* 9px i.e. 9/16*100=56.25 */
+    font-size: 75%;
+  }
+
   .ems-main-body-grid {
     grid-template-columns: 1fr;
     padding-left: 1rem;
+    gap: 0px 0px;
   }
-  .ems-employee-list-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
   .ems-side-menu-body {
     display: none;
   }
   .ems-body {
     width: 98vw;
+  }
+}
+/* Tablets */
+/* 944px max width 944/16 = 59em */
+@media (max-width: 59em) {
+  html {
+    /* 8px i.e. 9/16*100=50 */
+    font-size: 50%;
+  }
+}
+/* Phones */
+/* 544px*/
+@media (max-width: 34em) {
+  .ems-employee-list-grid {
+    grid-template-columns: 1fr;
+  }
+  .ems-employee-card {
+    max-width: 56rem;
   }
 }
 
