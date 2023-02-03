@@ -10,7 +10,7 @@ import { loadUser } from './state/account/account.actions';
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private router: Router) {}
-
+  title = 'EMS Client';
   ngOnInit(): void {
     this.loadCurrentUser();
   }
