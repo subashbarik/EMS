@@ -22,7 +22,7 @@ describe('Account Service Test', () => {
   let accountService: AccountService;
   let httpTestingController: HttpTestingController;
   let mockStore: MockStore<accountStore.IAccountState>;
-  let mockLocalstore = {};
+
   const initialState = {
     accState: {
       user: null,
@@ -49,6 +49,20 @@ describe('Account Service Test', () => {
       accountSelector.accountTokenSelector,
       'AA'
     );
+
+    //Local storage mock
+    let mockLocalstore = {};
+    spyOn(localStorage, 'getItem').and.callFake((key: string): string => {
+      return mockLocalstore[key] || null;
+    });
+    spyOn(localStorage, 'setItem').and.callFake(
+      (key: string, value: string): string => {
+        return (mockLocalstore[key] = <string>value);
+      }
+    );
+    spyOn(localStorage, 'removeItem').and.callFake((key: string): void => {
+      delete mockLocalstore[key];
+    });
   });
 
   it('Should pass login with valid user details', () => {
@@ -111,31 +125,12 @@ describe('Account Service Test', () => {
   });
 
   it('Should get token for user from localStorage if present', () => {
-    spyOn(localStorage, 'getItem').and.callFake((key: string): string => {
-      return mockLocalstore[key] || null;
-    });
-    spyOn(localStorage, 'setItem').and.callFake(
-      (key: string, value: string): string => {
-        return (mockLocalstore[key] = <string>value);
-      }
-    );
     localStorage.setItem('token', 'AAA');
     mockStore.refreshState();
     let token = accountService.getJwtToken();
     expect(localStorage.getItem('token')).toBe('AAA');
   });
   it('Should clear token when user logs out', () => {
-    spyOn(localStorage, 'getItem').and.callFake((key: string): string => {
-      return mockLocalstore[key] || null;
-    });
-    spyOn(localStorage, 'setItem').and.callFake(
-      (key: string, value: string): string => {
-        return (mockLocalstore[key] = <string>value);
-      }
-    );
-    spyOn(localStorage, 'removeItem').and.callFake((key: string): void => {
-      delete mockLocalstore[key];
-    });
     localStorage.setItem('token', 'AAA');
     accountService.logout().subscribe(() => {
       expect(localStorage.getItem('token')).toBe(null);
