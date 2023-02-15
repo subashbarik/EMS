@@ -16,6 +16,7 @@ import {
   getInvalidUserLoginData,
   getInvalidUserLoginResponseData,
 } from 'src/app/account/test/account.test-setup-data';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // Account service test suite
 describe('Account Service Test', () => {
@@ -37,6 +38,8 @@ describe('Account Service Test', () => {
       providers: [AccountService, provideMockStore({ initialState })],
     });
     accountService = TestBed.inject(AccountService);
+    // helps in providing the test data for a mock call to an api
+    // via HttpClientTestingModule
     httpTestingController = TestBed.inject(HttpTestingController);
 
     // Mock for Ng-Rx Store and Selector
@@ -70,16 +73,51 @@ describe('Account Service Test', () => {
       .login(getValidUserLoginData())
       .subscribe((response: IUser) => {
         expect(response).toBeTruthy();
+        //Additional error context to the test , incase it fails
         expect(response).withContext('Invalid User');
         expect(response.email).toBe('subash.barik@gmail.com');
         expect(response.isAdmin).toBe(true);
         expect(response.apiErrorResponse).toBe(null);
       });
+    //expect that the api call should be for account/login
     const req = httpTestingController.expectOne(
       environment.apiUrl + 'account/login'
     );
+    // Checks the request type
     expect(req.request.method).toEqual('POST');
+    // When flush is called then only suscribe part of the API
+    // call will receive data, this is because of the mock implementation
+    // of actual service by HttpTestingController
     req.flush(getValidUserLoginResponseData());
+    // Verifies that only one http call is made and no other
+    // unnecessary http calls are made
+    httpTestingController.verify();
+  });
+  it('Should give error if login api fails', () => {
+    accountService.login(getValidUserLoginData()).subscribe({
+      next: () => {
+        fail('The login operation should have failed');
+      },
+      error: (error: HttpErrorResponse) => {
+        expect(error.status).toBe(500);
+      },
+    });
+    //expect that the api call should be for account/login
+    const req = httpTestingController.expectOne(
+      environment.apiUrl + 'account/login'
+    );
+    // Checks the request type
+    expect(req.request.method).toEqual('POST');
+    // When flush is called then only suscribe part of the API
+    // call will receive data, this is because of the mock implementation
+    // of actual service by HttpTestingController
+    req.flush('Login failed', {
+      status: 500,
+      statusText: 'Internal Server Error',
+    });
+    // Verifies that only one http call is made and no other
+    // unnecessary http calls are made
+    httpTestingController.verify();
   });
 
   it('Should fail login with in-valid user details', () => {
@@ -106,6 +144,9 @@ describe('Account Service Test', () => {
     );
     expect(req.request.method).toEqual('POST');
     req.flush(getInvalidUserLoginResponseData());
+    // Verifies that only one http call is made and no other
+    // unnecessary http calls are made
+    httpTestingController.verify();
   });
 
   it('Should register a user with valid user details', () => {
@@ -135,5 +176,10 @@ describe('Account Service Test', () => {
     accountService.logout().subscribe(() => {
       expect(localStorage.getItem('token')).toBe(null);
     });
+  });
+  afterEach(() => {
+    // If all the it blocks needs to verify one http call then
+    // we can put this code in afterEach block.
+    //httpTestingController.verify();
   });
 });
