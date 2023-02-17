@@ -1,7 +1,5 @@
 <div class="row ems-header">
-  <div>
-    Welcome to EMS {{ (currentUser$ | async).isAdmin ? "Admin Module" : "" }}
-  </div>
+  <div>Report</div>
 </div>
 <div class="row ems-body">
   <div class="mt-2 d-flex justify-content-center ems-content">
@@ -9,10 +7,10 @@
       <iframe
         *ngIf="reportUrl"
         [src]="reportUrl"
-        width="1000px"
-        height="800px;"
+        width="900px"
+        height="700px;"
         allowfullscreen
-        class="ems-report-frame-style"
+        style="background-color: white"
       ></iframe>
     </div>
   </div>

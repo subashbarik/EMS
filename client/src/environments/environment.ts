@@ -8,6 +8,7 @@ export const environment = {
   //apiUrl: 'http://localhost:5100/api/',
   apiRetryCount: 3,
   apiRetryDelay: 3000,
+  reportServerUrl: 'http://localhost:63702/',
 };
 
 /*

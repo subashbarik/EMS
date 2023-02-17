@@ -42,6 +42,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'reports',
+        loadChildren: () =>
+          import('../report/report.module').then((mod) => mod.ReportModule),
+      },
+      {
         path: 'logs',
         loadChildren: () =>
           import('../log/log.module').then((mod) => mod.LogModule),
