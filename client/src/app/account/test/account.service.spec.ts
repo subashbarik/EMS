@@ -19,7 +19,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 
 // Account service test suite
-describe('Account Service Test', () => {
+describe('Account Service', () => {
   let accountService: AccountService;
   let httpTestingController: HttpTestingController;
   let mockStore: MockStore<accountStore.IAccountState>;
