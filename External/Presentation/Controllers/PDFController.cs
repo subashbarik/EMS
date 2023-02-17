@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Application.PDFService.Commands;
 using MediatR;
+using Application.PDFService.Queries;
 
 namespace Presentation.Controllers
 {
@@ -21,6 +22,16 @@ namespace Presentation.Controllers
         public async Task<ActionResult<bool>> CreatePDFFromString([FromQuery] string htmlData, string fileName)
         {
             return Ok(await _mediator.Send(new CreatePDFFromStringCommand(htmlData,fileName)));
+        }
+        /// <summary>
+        /// Returns PDF data for the passed in pdf file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        [HttpGet("getpdffromfile")]
+        public async Task<FileStreamResult> GetPDFAsStream([FromQuery] string filename)
+        {
+            return await _mediator.Send(new GetPDFFromFileQuery(filename));
         }
     }
 }
