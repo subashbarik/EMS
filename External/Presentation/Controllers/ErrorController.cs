@@ -55,6 +55,8 @@ namespace Presentation.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Guest";
             LogContext.PushProperty("UserId", userId);
             _logger.LogError(exception, exception.Message);
+            // We can follow the below pattern to add additional structured logging .
+            //_logger.LogError(exception, "Exception details {@error},{@DateTimeUtc}",exception.Message,DateTime.UtcNow);
             //_logger.LogError("{Message}{Messagetemplate}{Level}{TimeStamp}{Exception}", exception.Message, exception.Message,"Error", DateTime.Now, exception);
             var response = _env.IsDevelopment() ?
                                 new ApiException(httpStatusCode, exception.Message, exception.StackTrace.ToString()) :
