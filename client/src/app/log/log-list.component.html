@@ -3,7 +3,7 @@
     <div>Log List</div>
   </div>
 </div>
-<div class="row ems-body">
+<div class="row ems-body" appTheme>
   <div class="mt-2 ems-content">
     <ng-container *ngIf="vm$ | async as vm">
       <ng-container *ngIf="vm.logs">
@@ -37,7 +37,10 @@
         </ng-container>
       </ng-container>
 
-      <div class="d-flex justify-content-center mt-2" *ngIf="vm.count > 0">
+      <div
+        class="d-flex justify-content-center mt-2"
+        *ngIf="vm.count > vm.logParams.pageSize"
+      >
         <app-pager
           [pageSize]="vm.logParams.pageSize"
           [totalCount]="vm.count"

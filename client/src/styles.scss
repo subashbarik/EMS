@@ -9,11 +9,12 @@ body {
 }
 .ems-app-container {
   width: 99vw;
-  background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: $emsPrimaryBodyBackGroundColor;
 }
 // Header start
 .ems-header-body {
-  background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: var(--background);
   //width: 97vw;
 }
 // Header ends
@@ -24,7 +25,7 @@ body {
   border: 1px solid $emsPrimaryThemeColor;
   height: 90vh;
   //min-width: 8vh;
-  background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: $emsPrimaryBodyBackGroundColor;
   margin: 0px 10px;
   border-radius: $emsBorderRadius;
   box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem $emsShadowColor;
@@ -65,8 +66,8 @@ body {
 .ems-header {
   background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
-  font-size: 1rem;
-  height: 3vh;
+  //font-size: 1rem;
+  //height: 3vh;
   //width: 83vw;
   border-top-left-radius: $emsBorderRadius;
   border-top-right-radius: $emsBorderRadius;
@@ -76,7 +77,7 @@ body {
   border: 1px solid $emsPrimaryThemeColor;
   //width: 83vw;
   height: 87vh;
-  background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: $emsPrimaryBodyBackGroundColor;
   overflow: auto;
   border-bottom-left-radius: $emsBorderRadius;
   border-bottom-right-radius: $emsBorderRadius;
@@ -101,7 +102,7 @@ body {
   //height: 87vh;
 }
 .ems-report-frame-style {
-  background-color: $emsPrimaryBodyBackGroundColor;
+  //background-color: $emsPrimaryBodyBackGroundColor;
 }
 .ems-loading-div-style {
   display: inline;
@@ -155,7 +156,7 @@ body {
   padding: 2rem;
 }
 .ems-login-form-header {
-  background-color: $emsPrimaryThemeColor;
+  //background-color: $emsPrimaryThemeColor;
   color: $emsPageHeaderColor;
 }
 
@@ -183,7 +184,27 @@ body {
   transform: translateY(-0.3rem);
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.075);
 }
-
+.ems-theme-grey,
+.ems-theme-blue,
+.ems-theme-selected {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.ems-theme-blue {
+  // for some reason this color is not applied in the theme
+  // box in the header
+  background-color: $emsPrimaryBodyBackGroundColor;
+}
+.ems-theme-green {
+  // for some reason this color is not applied in the theme
+  // box in the header
+  background-color: $emsSecondaryBodyBackGroundColor;
+}
+.ems-theme-selected {
+  border: 2px solid #0d6efd;
+}
 // media queries
 
 /* Small Computer screens */

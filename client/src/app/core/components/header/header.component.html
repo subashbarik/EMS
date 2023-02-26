@@ -1,4 +1,4 @@
-<div class="ems-header-body">
+<div class="ems-header-body" appTheme>
   <ng-container *ngIf="currentUser$ | async as user">
     <div class="d-flex align-items-center justify-content-between">
       <ng-container *ngIf="serverConfig$ | async as serverConfig">
@@ -116,6 +116,30 @@
             </ul>
           </header>
         </ng-container>
+      </div>
+      <div>
+        <div class="d-flex gap-2">
+          <div
+            style="background-color: #d9e0e6"
+            (click)="setTheme('grey')"
+            [ngClass]="
+              selectedTheme == 'grey' ? 'ems-theme-selected' : 'ems-theme-grey'
+            "
+          ></div>
+          <div
+            style="background-color: #baccdc"
+            (click)="setTheme('blue')"
+            [ngClass]="
+              selectedTheme == 'blue' ? 'ems-theme-selected' : 'ems-theme-blue'
+            "
+          ></div>
+        </div>
+      </div>
+      <div>
+        <div class="d-flex gap-2">
+          <div style="cursor: pointer" (click)="setFontTheme('normal')">A</div>
+          <div style="cursor: pointer" (click)="setFontTheme('bigger')">A+</div>
+        </div>
       </div>
       <div>
         <div class="dropdown">

@@ -4,6 +4,7 @@ import { IDepartmentState } from './department/department.reducer';
 import { IDesignationState } from './designation/designation.reducer';
 import { IEmployeeState } from './employee/employee.reducer';
 import { ILogState } from './log/log.reducer';
+import { IThemeState } from './theme/theme.reducer';
 
 export interface IAppState {
   accState: IAccountState;
@@ -12,4 +13,5 @@ export interface IAppState {
   desigState: IDesignationState;
   logState: ILogState;
   globalState: IGlobalState;
+  themeState: IThemeState;
 }

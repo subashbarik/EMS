@@ -8,6 +8,7 @@ import { SelectInputComponent } from './components/select-input/select-input.com
 import { PagerComponent } from './components/pager/pager.component';
 import { StringmaxlengthPipe } from './pipes/stringmaxlength.pipe';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ThemeModule } from '../theme/theme.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,16 @@ import { LoadingComponent } from './components/loading/loading.component';
     StringmaxlengthPipe,
     LoadingComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, PaginationModule.forRoot()],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PaginationModule.forRoot(),
+    ThemeModule,
+  ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
+    ThemeModule,
     TextInputComponent,
     TableComponent,
     SelectInputComponent,

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -11,17 +11,20 @@ import {
 } from 'src/app/state/account/account.actions';
 import { selectUser } from 'src/app/state/account/account.selectors';
 import { selectAppConfiguration } from 'src/app/state/appglobal/appglobal.selectors';
+import { setColorTheme, setFontTheme } from 'src/app/state/theme/theme.actions';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   public currentUser$: Observable<IUser>;
   public serverConfig$: Observable<IServerAppConfiguration>;
   public logoutUserSuccessSubscription = new Subscription();
-
+  public selectedColorTheme = 'grey';
+  public selectedFontTheme = 'normal';
   constructor(
     private store: Store,
     private router: Router,
@@ -53,5 +56,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         },
         error: (error) => {},
       });
+  }
+  setTheme(themeName: string): void {
+    this.selectedColorTheme = themeName;
+    this.store.dispatch(setColorTheme({ name: themeName }));
+  }
+  setFontTheme(themeName: string): void {
+    this.selectedFontTheme = themeName;
+    this.store.dispatch(setFontTheme({ name: themeName }));
   }
 }

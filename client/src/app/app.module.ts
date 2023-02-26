@@ -22,6 +22,7 @@ import { AccountEffects } from './state/account/account.effects';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { logReducer } from './state/log/log.reducer';
 import { LogEffect } from './state/log/log.effects';
+import { themeReducer } from './state/theme/theme.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { LogEffect } from './state/log/log.effects';
       desigState: designationReducer,
       logState: logReducer,
       globalState: globalReducer,
+      themeState: themeReducer,
     }),
     EffectsModule.forRoot([
       AccountEffects,
