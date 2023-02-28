@@ -123,14 +123,18 @@
             style="background-color: #d9e0e6"
             (click)="setTheme('grey')"
             [ngClass]="
-              selectedTheme == 'grey' ? 'ems-theme-selected' : 'ems-theme-grey'
+              selectedColorTheme == 'grey'
+                ? 'ems-theme-selected'
+                : 'ems-theme-grey'
             "
           ></div>
           <div
             style="background-color: #baccdc"
             (click)="setTheme('blue')"
             [ngClass]="
-              selectedTheme == 'blue' ? 'ems-theme-selected' : 'ems-theme-blue'
+              selectedColorTheme == 'blue'
+                ? 'ems-theme-selected'
+                : 'ems-theme-blue'
             "
           ></div>
         </div>

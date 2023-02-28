@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CoreService } from 'src/app/core/core.service';
+import { IServerAppConfiguration } from 'src/app/shared/models/serverappconfiguration';
 import { selectEmployee } from 'src/app/state/employee/employee.selectors';
 
 @Component({
@@ -9,10 +11,20 @@ import { selectEmployee } from 'src/app/state/employee/employee.selectors';
   styleUrls: ['./employee-details.component.scss'],
 })
 export class EmployeeDetailsComponent implements OnInit {
+  public serverAppConfig: IServerAppConfiguration;
   public employee$ = this.store.select(
     selectEmployee(+this.router.snapshot.paramMap.get('id'))
   );
-  constructor(private store: Store, private router: ActivatedRoute) {}
+  constructor(
+    private store: Store,
+    private router: ActivatedRoute,
+    private coreService: CoreService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getServerConfiguration();
+  }
+  getServerConfiguration() {
+    this.serverAppConfig = this.coreService.serverAppConfig;
+  }
 }
