@@ -1,0 +1,64 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2022-12-16T08:58:46.6617388Z"
+    },
+    "mssql3": {
+      "restored": true,
+      "restoreTime": "2022-12-16T09:00:43.8148826Z"
+    },
+    "mssql4": {
+      "restored": true,
+      "restoreTime": "2022-12-16T09:03:00.1111639Z"
+    },
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2022-12-16T08:58:18.8124841Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2022-12-16T08:58:38.0099765Z"
+    },
+    "identityapp1": {
+      "restored": true,
+      "restoreTime": "2022-12-16T09:02:22.9836624Z"
+    },
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2022-12-16T08:58:51.2395364Z"
+    }
+  },
+  "parameters": {
+    "mssql4.resourceGroupName": {
+      "Name": "mssql4.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "EMS-WebDevelopment"
+    },
+    "mssql4.subscriptionId": {
+      "Name": "mssql4.subscriptionId",
+      "Type": "subscription",
+      "Value": "08f1ceb4-cf41-4318-a1e8-69d9541081bd"
+    },
+    "mssql3.subscriptionId": {
+      "Name": "mssql3.subscriptionId",
+      "Type": "subscription",
+      "Value": "08f1ceb4-cf41-4318-a1e8-69d9541081bd"
+    },
+    "apis1.resourceGroupName": {
+      "Name": "apis1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "EMS-WebDevelopment"
+    },
+    "apis1.subscriptionId": {
+      "Name": "apis1.subscriptionId",
+      "Type": "subscription",
+      "Value": "08f1ceb4-cf41-4318-a1e8-69d9541081bd"
+    },
+    "mssql3.resourceGroupName": {
+      "Name": "mssql3.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "EMS-WebDevelopment"
+    }
+  }
+}

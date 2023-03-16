@@ -1,0 +1,6 @@
+2022-12-13 11:06:32.013 +05:30 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2022-12-13 11:06:32.291 +05:30 [INF] Now listening on: https://localhost:7241
+2022-12-13 11:06:32.292 +05:30 [INF] Now listening on: http://localhost:5293
+2022-12-13 11:06:32.295 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2022-12-13 11:06:32.296 +05:30 [INF] Hosting environment: Development
+2022-12-13 11:06:32.296 +05:30 [INF] Content root path: C:\Subash\Projects\Demo\Angular\EMS\Web\

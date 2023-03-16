@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\EMS_API</_PublishTargetUrl>
+    <History>True|2022-12-16T14:02:46.7454045Z;True|2022-12-16T19:30:28.2171168+05:30;True|2022-12-16T19:28:28.1090513+05:30;True|2022-12-16T19:27:41.8688465+05:30;True|2022-12-16T19:25:50.5172109+05:30;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

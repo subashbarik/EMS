@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2022-12-17T04:49:36.3825721Z"
+    },
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2022-12-17T04:49:11.0927739Z"
+    },
+    "identityapp1": {
+      "restored": true,
+      "restoreTime": "2022-12-17T04:49:21.8451699Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2022-12-17T04:49:28.994217Z"
+    },
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2022-12-17T04:49:18.7086895Z"
+    }
+  },
+  "parameters": {
+    "apis1.resourceGroupName": {
+      "Name": "apis1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "EMS-WebDevelopment"
+    },
+    "apis1.subscriptionId": {
+      "Name": "apis1.subscriptionId",
+      "Type": "subscription",
+      "Value": "08f1ceb4-cf41-4318-a1e8-69d9541081bd"
+    }
+  }
+}

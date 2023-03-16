@@ -80,6 +80,7 @@ app.UseSwaggerUI(c =>
     // When we deploy the API , swagger page will be show by default 
     c.RoutePrefix = string.Empty;
 });
+//app.UseSerilogRequestLogging(); - test this
 // If endpoint for a api request not found then we need 
 // below to result proper error
 app.UseStatusCodePagesWithReExecute("/api/error/apiendpointnotfound/{0}");
